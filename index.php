@@ -1,15 +1,12 @@
 <?php require_once('config.php') ?>
-<?php require_once( ROOT_PATH . '/includes/public_functions.php') ?>
-
-<!-- Retrieve all posts from database  -->
-<?php $posts = getPublishedPosts(); ?>
+ 
 <?php require_once( ROOT_PATH . '/includes/head.php') ?>
 	<title>Food Print </title>
 </head>
 <body>
 	<!-- container - wraps whole page -->
 <div class="container"><div><span class="align-right"> 
- 	<a class="btn btn-primary" href="#" role="button">Login</a></span></div>	
+ 	<a class="btn btn-primary" href="login.php" role="button">Login</a></span></div>	
 <section id="introduction">  
  
    <div class="row fill-viewport align-items-center">
