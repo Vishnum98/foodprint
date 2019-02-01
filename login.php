@@ -40,44 +40,77 @@
     </table>
     <?php
       if (isset($_POST['submit1'])){
-        echo "Restaurant";
+        // echo "Restaurant";
+
+        session_start();
+             // connect to database
+            $conn = mysqli_connect("localhost", "root", "", "db");
+
+            if (!$conn) {
+                die("Error connecting to database: " . mysqli_connect_error());
+            }
+
+            require_once('config.php') ;
+            // session_start();
+            $username=$_POST['username'];
+            $password=$_POST['password'];
+            $_SESSION['login_user']=$username; 
+            $sql="select res_id from restaurant where res_name='$username' and res_password='$password' ";    
+            $result = mysqli_query ( $conn , $sql );   // Executes sql code
+
+            if ( mysqli_num_rows( $result ) > 0 ){
+             
+                $data=mysqli_fetch_assoc($result);     // Getting password from db         
+                {         
+                    $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
+                    $_SESSION["username"] = $username; 
+                    $_SESSION["userid"] = $data["resid"]; 
+                    header('Location: home.php');           
+                }         
+            }
+             
+            else
+             
+            { echo " Your id or pswd incorrect ";
+             
+            }
+
       }
-    if (isset($_POST['submit']))
-        {     
+    else if (isset($_POST['submit'])){     
             session_start();
 
-    // connect to database
-    $conn = mysqli_connect("localhost", "root", "", "db");
+            // connect to database
+            $conn = mysqli_connect("localhost", "root", "", "db");
 
-    if (!$conn) {
-        die("Error connecting to database: " . mysqli_connect_error());
-    }
+            if (!$conn) {
+                die("Error connecting to database: " . mysqli_connect_error());
+            }
 
-    require_once('config.php') ;
-    // session_start();
-    $username=$_POST['username'];
-    $password=$_POST['password'];
-    $_SESSION['login_user']=$username; 
-    $sql="select password,userid from userdata where username='$username' and password='$password' ";    
-    $result = mysqli_query ( $conn , $sql );   // Executes sql code
+            require_once('config.php') ;
+            // session_start();
+            $username=$_POST['username'];
+            $password=$_POST['password'];
+            $_SESSION['login_user']=$username; 
+            $sql="select password,userid from userdata where username='$username' and password='$password' ";    
+            $result = mysqli_query ( $conn , $sql );   // Executes sql code
 
-    if ( mysqli_num_rows( $result ) > 0 ){
-     
-        $data=mysqli_fetch_assoc($result);     // Getting password from db         
-        {         
-            $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
-            $_SESSION["username"] = $username; 
-            $_SESSION["userid"] = $data["userid"]; 
-            header('Location: home.php');           
-        }         
-    }
-     
-    else
-     
-    { echo " Your id or pswd incorrect ";
-     
-    }
-     
+            if ( mysqli_num_rows( $result ) > 0 ){
+             
+                $data=mysqli_fetch_assoc($result);     // Getting password from db         
+                {         
+                    $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
+                    $_SESSION["username"] = $username; 
+                    $_SESSION["userid"] = $data["userid"]; 
+                    header('Location: home.php');           
+                }         
+            }
+             
+            else
+             
+            { echo " Your id or pswd incorrect ";
+             
+            }
+             
     }
      
     ?>                

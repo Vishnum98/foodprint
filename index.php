@@ -1,44 +1,99 @@
-<?php require_once('config.php') ?>
+
+	<title>Food Print </title>
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+	<?php require_once('config.php') ?>
  
 <?php require_once( ROOT_PATH . '/includes/head.php') ?>
-	<title>Food Print </title>
-</head>
-<body>
-	<!-- container - wraps whole page -->
-<div class="container"><div><span class="align-right"> 
- 	<a class="btn btn-primary" href="login.php" role="button">Login</a></span></div>	
-<section id="introduction">  
- 
-   <div class="row fill-viewport align-items-center">
-     <div class="col-12 col-md-6">
- 
-       <h1 class="text-white">You don't waste just a plate of food</h1>
-       <p class="lead text-white-70">Lame Text  </p>
-      <section class="columns lead text-white-70">
-	
-	<div class="column">
-    
-    <h4  id="number">0</h4> <h4>litres</h4>
-		<p>of water could have been saved  </p>
-	</div>
-	
-	<div class="column">
-		<h4>10 Calories</h4>
-		<p>could have been fed </p>
-	</div>
+  <meta charset="UTF-8">
+  <title>Food Print</title>
   
-  <div class="column">
-		<h4 id="number">10 acre</h4>
-		<p>land could have been used anywhere</p>
-	</div>
-	
-</section>	
-	
-     </div>
-   </div>
- </div>
-</section>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.6/jquery.fullPage.min.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css'>
+
+      <link rel="stylesheet" href="static/css/style1.css">
+
+  
+</head>
+
+<body>
+
+  <div id="fullpage">
+    <section class="section" id="section0">
+     <div class="container"> 
+       <div class="row">
+         <div class="col-sm-8 col-sm-offset-2">
+           <p class="text-center"></p>
+         </div>
+        </div>
+      </div>
+    </section>
+    <section class="section second">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4  is-animated">
+<!--             <img class="img-responsive" src="https://i.postimg.cc/3rbRkMtq/card1.png"> -->
+          </div>
+          <div class="col-sm-4 is-animated">
+<!--             <img class="img-responsive" src="https://i.postimg.cc/rpj9VxL7/card1.png"> -->
+          </div>
+          <div class="col-sm-4 is-animated">
+<!--             <img class="img-responsive" src="https://i.postimg.cc/rpj9VxL7/card1.png"> -->
+          </div>
+          <div class="col-xs-12 text-center is-animated__single">
+<!--              <button type="button" class="btn btn-lg">A Simple Button</button> -->
+          </div>
+        </div><!--end of row-->
+      </div><!--end of container-->
+    </section>
+    <section class="section third">
+      <div class="slide is-animated" id="slide1">
+            <img class="img1" src="https://i.postimg.cc/vTyg4Hwk/quote.png">
+          </div>
+      <div class="container">
+        
+        <div class="row">
+          <div class="slide  " id="slide2">
+<!--             <img class="img-responsive" src="https://i.postimg.cc/kGbMcNJH/quote.png"> -->
+          </div>
+          
+<!--            <div class="col-xs-12 text-center is-animated__single">
+             <button type="button" class="btn btn-lg">A Simple Button</button>
+          </div> -->
+        </div><!--end of row-->
+      </div><!--end of container-->
+    </section>
+    <section class="section fourth">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 is-animated">
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,t.</p>
+          </div>
+          <div class="col-xs-12 is-animated">
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo </p>
+          </div>
+          <div class="col-xs-12 text-center is-animated__single">
+             <button type="button" class="btn btn-lg">Thank You!</button>
+          </div>
+        </div><!--end of row-->
+      </div><!--end of container-->
+    </section>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.6/jquery.fullPage.min.js'></script>
+
+  
+
+    <script  src="static/js/index.js"></script>
+
+
 
 
 </body>
+
 </html>

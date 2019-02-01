@@ -1,0 +1,58 @@
+body {
+  font: normal 2em/1.5em "Helvetica Neue", Arial, sans-serif;
+  color: #fff;
+}
+
+#section0 {
+  background-image: url(https://i.postimg.cc/QMYjz1KM/A-PLATE-OF-FOOD.png);
+  background-size: cover;
+}
+
+button.btn {
+  margin-top: 40px;
+  background: #66bb6a;
+  border-radius: 4px;
+}
+
+section:nth-child(1) {
+  background-color: #66bb6a;
+}
+section:nth-child(2), section:nth-child(4) {
+  background-color: #a5d6a7;
+}
+section:nth-child(3) {
+  background: url("https://i.postimg.cc/G2pHkss0/boy-potrait.jpg");
+  background-size: cover;
+}
+
+.fourth button {
+  margin-top: 20px;
+}
+
+p {
+  margin-bottom: 30px;
+}
+
+div.cl {
+  background-color: #66bb6a;
+}
+
+#fp-nav ul li a span {
+  background: #fff;
+}
+
+img1 {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* // #slide1{
+// 		background-image: url(imgs/bg2.jpg);
+// 		padding: 6% 0 0 0;
+// 	} */
+#slide2 {
+  background-image: url("https://www.wineaustralia.com/getmedia/d537c0b4-ea7f-4512-8201-94d7cee2a357/hk-winedine2018-overview-1900.jpg");
+  /*background-size: cover;*/
+  padding: 6% 0 0 0;
+}
