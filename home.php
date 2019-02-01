@@ -179,6 +179,7 @@ $result2 = mysqli_query ( $conn , $sql2 );
 
 
 <h1><a href="logout.php">Logout here</a> </h1>  
+<h2><a href="user_history.php">History</a> </h2>  
   
   
 </body>  
