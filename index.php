@@ -1551,7 +1551,7 @@ textarea.form-control {
                     <p class="text-uppercase g-font-size-14--xs g-font-weight--700 g-color--primary g-letter-spacing--2 g-margin-b-25--xs">Contact</p>
                     
                 </div>
-                <form method="post" action="">
+                <form method="post" >
                     <div class="row g-margin-b-40--xs">
                         <div class="col-sm-6 g-margin-b-20--xs g-margin-b-0--md">
                             <div class="g-margin-b-20--xs">
@@ -1567,14 +1567,11 @@ textarea.form-control {
                         </div>
                     </div>
                     <div class="g-text-center--xs">
-                        <button type="submit" class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs">Submit</button>
+                        <button type="submit" name="fsubmit" class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs">Submit</button>
                     </div>
                 </form>
                 <div class="g-text-center--xs" id="confirm"></div>
-                <div class="g-text-center--xs g-margin-b-40--xs">
-                    <br><br>
-                    <p class="text-uppercase g-font-size-14--xs g-color--dark g-font-weight--400 g-letter-spacing--2 g-margin-b-25--xs">Or Need Any Help? Contact: <a href="team.php">Team</a></p>
-                </div>
+                
             </div>
         </div>
         </div>
@@ -1667,8 +1664,29 @@ $('#return-to-top').click(function() {      // When arrow is clicked
                     }
                 }
             });
-        </script>
 
+
+
+
+        </script>
+        <?php 
+           $conn = mysqli_connect("localhost", "root", "", "db");
+      if (!$conn) {
+          die("Error connecting to database: " . mysqli_connect_error());
+      }
+      $name=$_POST['name'];
+      $mobile=$_POST['mobile'];
+      $number=$_POST['phone'];
+      $email=$_POST['email'];
+
+      $message=$_POST['message'];
+          if (isset($_POST['fsubmit']))
+        {  
+          $sql="INSERT INTO `feedback` ( `name`, `email`, `mobile`, `message`) VALUES ('$name', '$email', '$number', '$message')";
+          echo"insertred". $sql;
+          $res=mysqli_query ( $conn , $sql);
+        }
+        ?>
 </body>
 
 </html>
