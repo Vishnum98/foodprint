@@ -3,10 +3,58 @@ body {
   color: #fff;
 }
 
-#section0 {
+/* Backgrounds will cover all the section
+  * --------------------------------------- */
+  #section0,
+  #section1,
+  #section2,
+  #section3,
+    #slide1,
+    #slide2{
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  /* Defining each sectino background and styles
+  * --------------------------------------- */
+  /*#section0{
+    background-image: url(imgs/bg1.jpg);
+  }*/
+  #section0 {
   background-image: url(https://i.postimg.cc/QMYjz1KM/A-PLATE-OF-FOOD.png);
-  background-size: cover;
+  /*background-size: cover;*/
 }
+  #section0 h1{
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+  }
+  #section2{
+    background-image: url("https://i.postimg.cc/7hmkyWxP/boy-landscape.png");
+    padding: 6% 0 0 0;
+  }
+  #section3{
+    background-image: url(imgs/bg4.jpg);
+    padding: 6% 0 0 0;
+  }
+  #section3 h1{
+    color: #000;
+  }
+
+
+  /*Adding background for the slides
+  * --------------------------------------- */
+  #slide1{
+    background-image: url("https://i.postimg.cc/7hmkyWxP/boy-landscape.png");
+    padding: 6% 0 0 0;
+  }
+  #slide2{
+    background-image: url(imgs/bg5.jpg);
+    padding: 6% 0 0 0;
+  }
+
+
+
 
 button.btn {
   margin-top: 40px;
@@ -17,12 +65,15 @@ button.btn {
 section:nth-child(1) {
   background-color: #66bb6a;
 }
-section:nth-child(2), section:nth-child(4) {
-  background-color: #a5d6a7;
+section:nth-child(2){
+  background-color: #ffffff;
 }
-section:nth-child(3) {
-  background: url("https://i.postimg.cc/G2pHkss0/boy-potrait.jpg");
+/*section:nth-child(3) {
+  background: url("https://i.postimg.cc/7hmkyWxP/boy-landscape.png");
   background-size: cover;
+}*/
+section:nth-child(4) {
+  background-color: #ffffff;
 }
 
 .fourth button {
@@ -41,18 +92,27 @@ div.cl {
   background: #fff;
 }
 
-img1 {
+/*img1 {
   display: block;
   max-width: 100%;
   height: auto;
-}
+}*/
 
-/* // #slide1{
-// 		background-image: url(imgs/bg2.jpg);
-// 		padding: 6% 0 0 0;
-// 	} */
-#slide2 {
-  background-image: url("https://www.wineaustralia.com/getmedia/d537c0b4-ea7f-4512-8201-94d7cee2a357/hk-winedine2018-overview-1900.jpg");
-  /*background-size: cover;*/
+
+/* #slide1{
+  		background-image: url("https://i.postimg.cc/7hmkyWxP/boy-landscape.png");
+      background-size: cover;
+      background-size: cover;
+    background-attachment: fixed;
+
+  		padding: 6% 0 0 0;
+  	} 
+*//*#slide1 {
+  background-image: url("https://i.postimg.cc/7hmkyWxP/boy-landscape.png");
+  background-size: cover;
   padding: 6% 0 0 0;
-}
+}#slide2 {
+  background-image: url("https://i.postimg.cc/25m248QJ/second-fact.png");
+  background-size: cover;
+  padding: 6% 0 0 0;
+}*/

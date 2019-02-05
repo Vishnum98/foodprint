@@ -12,11 +12,12 @@ $conn = mysqli_connect("localhost", "root", "", "db");
 	        die("Error connecting to database: " . mysqli_connect_error());
 	    }
 require_once('config.php') ;	
-$userid=$_SESSION["userid"];
+$resid=$_SESSION["userid"];
 
 ?> 
 <html>  
 <head>  
+  
     <style type="text/css">
       @import 'https://fonts.googleapis.com/css?family=Raleway';
 
@@ -83,48 +84,44 @@ $userid=$_SESSION["userid"];
             width: 100%;
         }</style>
     <title>  
-        Home  
+    <?php  echo $_SESSION['username'];  ?>    
     </title>  
     <div class="container1 indigo borderYtoX">
-        <a href="home.php">Home</a>
-        <a href="user_history.php">History</a>     
+        <a href="res_home.php">Home</a>
+        <a href="res_history.php">History</a>     
         <a href="logout.php">Logout </a> 
 
     </div> 
-
 </head>  
   
 <body>  
-    <h1>Welcome</h1><br> 
-    Hello  
-    <?php  
-    echo $_SESSION['username'];  
-    ?>  
-    <br> Your User Id is
-    <?php  
-    echo $_SESSION['userid'];  
-    ?>  
-      <br><br>
-    <?php  
-    $sql2="select water,calories,land from userdata WHERE userid= '$userid'";    
-    $result2 = mysqli_query ( $conn , $sql2 );
+<h1>Welcome</h1><br> 
+Hello  
+<?php  echo $_SESSION['username'];  ?>  
+<br> Your Restaurant Id is
+<?php  echo $_SESSION['userid'];  ?>  
+  <br><br>
+<?php  
+$sql2="select water,calories,land from restaurant WHERE res_id= '$resid'";    
+$result2 = mysqli_query ( $conn , $sql2 );
 
-    if ( mysqli_num_rows( $result2 ) > 0 ){
+ if ( mysqli_num_rows( $result2 ) > 0 ){
 		     
-        $data=mysqli_fetch_assoc($result2);       
-		               
-    	//data has water,calories,land
-    	echo 'Total water is ', $data["water"] .PHP_EOL;
-    	echo "<br>".'Total Calories are ', $data["calories"],PHP_EOL;
-    	echo '<br>Total land is ', $data["land"],PHP_EOL;
+		        $data=mysqli_fetch_assoc($result2);     
+		        {         
+	            	//data has water,calories,land
+	            	echo 'Total water is ', $data["water"] .PHP_EOL;
+	            	echo "<br>".'Total Calories are ', $data["calories"],PHP_EOL;
+	            	echo '<br>Total land is ', $data["land"],PHP_EOL;
 	            	 
-		                 
-    }else{
-         echo " First Time user ";
+		        }         
+		    }else
+     
+		    { echo " First Time user ";
 		     
-    }
+		    }
 
-?>
+?>  
  <table align="center" bgcolor="#CCCCCC" border="0" cellpadding="0"
     cellspacing="1" width="330">
         <tr>
@@ -135,21 +132,6 @@ $userid=$_SESSION["userid"];
                         <tr>
                             <td align="center" colspan="3"><strong>Add Item</strong></td>
                         </tr>
-                        <tr>
-                            <td width="188">Restaurant Id</td>
-                            <td width="6">:</td>
-                            <td width="294">
-                            	<select name="resid" id="resid">
-								  <option value="1">Hide Out Cafe</option>
-								  <option value="2">Nazeer</option>
-								  <option value="3">Curry House</option>
-								  <option value="4">Shruti</option>
-								</select>
-
-                            <!-- 	<input id="resid" name= "resid" type="text"> -->
-                            </td>
-                        </tr>
-
                         <tr>
                             <td>Food id</td>
                             <td>:</td>
@@ -175,6 +157,12 @@ $userid=$_SESSION["userid"];
                             "text"></td>
                         </tr>
                         <tr>
+                            <td>mobile</td>
+                            <td>:</td>
+                            <td><input id="mobile" name="mobile" type=
+                            "text"></td>
+                        </tr>
+                        <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td><input name="submit" type="submit" value=
@@ -194,11 +182,11 @@ $userid=$_SESSION["userid"];
         {     
             // session_start();
 		    	    
-		    $resid=$_POST['resid'];
+		    // $resid=$_SESSION['userid'];
 		    // $foodid=$_POST['foodid'];
 		    $percent=$_POST['percent'];
             $foodname=$_POST['foodname'];
-		    
+		    $mobile=$_POST['mobile'];
             //getting food id from foodname 
             //todo populate foodname based on restaurant selected
             $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
@@ -209,24 +197,34 @@ $userid=$_SESSION["userid"];
                 $data1=mysqli_fetch_assoc($res);
                 $foodid=$data1['food_id'];
     		    $sql="select water,calories,land from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
-    		    $result = mysqli_query ( $conn , $sql );   // Executes sql code
-    		     
+    		    $result = mysqli_query ( $conn , $sql );   // Executes sql code    		     
+
     		    if ( mysqli_num_rows( $result ) > 0 ){
     		     
-    		        $data=mysqli_fetch_assoc($result);     // Getting password from db         
+    		        $data=mysqli_fetch_assoc($result);           
     		                 
-    	            	//data has water,calories,land
-    	            	$water=$percent*$data["water"]/100;
-    	            	$calories=$percent*$data["calories"]/100;
-    	            	$land=$percent*$data["land"]/100;
-    	            	// echo $water +"   calories= "+ $calories +"  land= "+$land;
+	            	//data has water,calories,land
+	            	$water=$percent*$data["water"]/100;
+	            	$calories=$percent*$data["calories"]/100;
+	            	$land=$percent*$data["land"]/100;
+	            	// echo $water +"   calories= "+ $calories +"  land= "+$land;
+                    $sql5="select userid from userdata where mobile='$mobile'";
+                    // echo "here is the query".$sql5;
+                    $result3=mysqli_query($conn,$sql5);
+                    if ( mysqli_num_rows( $result3) > 0 ){
+
+                        $data1=mysqli_fetch_assoc($result3);
+                        $userid=$data1['userid'];
     	            	$sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE userid= '$userid'";   
                 		$sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
                         $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
                 		$result1 = mysqli_query ( $conn , $sql1 );   
                 		$result1 = mysqli_query ( $conn , $sql3 );   
                         $result2 = mysqli_query ( $conn , $sql4 );   
-    		            header('Location: home.php');          
+    		            header('Location: res_home.php'); }
+                    else{
+                        echo "Incorrect mobile";
+                    }         
     		               
     		    }else{ 
                     echo " Incorrect data ";
@@ -245,8 +243,8 @@ $userid=$_SESSION["userid"];
 
 
 
-<h1><a href="logout.php">Logout here</a> </h1>  
-<h2><a href="user_history.php">History</a> </h2>  
+<!-- <h1><a href="logout.php">Logout here</a> </h1>  
+<h2><a href="user_history.php">History</a> </h2>   -->
   
   
 </body>  

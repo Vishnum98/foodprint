@@ -64,8 +64,8 @@
                 {         
                     $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
                     $_SESSION["username"] = $username; 
-                    $_SESSION["userid"] = $data["resid"]; 
-                    header('Location: home.php');           
+                    $_SESSION["userid"] = $data["res_id"]; 
+                    header('Location: res_home.php');           
                 }         
             }
              

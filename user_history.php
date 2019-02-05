@@ -18,9 +18,172 @@ $userid=$_SESSION["userid"];
 <html>  
 <head>  
   
+    <style type="text/css">
+      @import 'https://fonts.googleapis.com/css?family=Raleway';
+
+        html, body
+        {
+        margin: 0px;
+        }
+
+
+        div.container1
+        {
+            font-family: Raleway;
+            margin: 0 auto;
+            padding: 0.7em ;
+            text-align: center;
+        }
+
+        div.container1 a
+        {
+            color: #FFF;
+            text-decoration: none;
+            font: 16px Raleway;
+            margin: 0px 10px;
+            padding: 10px 10px;
+            position: relative;
+            z-index: 0;
+            cursor: pointer;
+        }
+
+        .indigo
+        {
+            background: #3f51b5;
+        }
+
+
+        /* Border from Y to X  */
+        div.borderYtoX a:before, div.borderYtoX a:after
+        {
+            position: absolute;
+            opacity: 0.7;
+            height: 100%;
+            width: 2px;
+            content: '';
+            background: #FFF;
+            transition: all 0.3s;
+        }
+
+        div.borderYtoX a:before
+        {
+            left: 0px;
+            top: 0px;
+        }
+
+        div.borderYtoX a:after
+        {
+            right: 0px;
+            bottom: 0px;
+        }
+
+        div.borderYtoX a:hover:before, div.borderYtoX a:hover:after
+        {
+            opacity: 1;
+            height: 1px;
+            width: 100%;
+        }
+
+        h1{
+          font-size: 30px;
+          color: #fff;
+          text-transform: uppercase;
+          font-weight: 300;
+          text-align: center;
+          margin-bottom: 15px;
+        }
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+        table{
+          width:100%;
+          table-layout: fixed;
+        }
+        .tbl-header{
+          background-color: light yellow;
+         }
+        .tbl-content{
+          height:300px;
+          overflow-x:auto;
+          margin-top: 0px;
+          border: 1px solid rgba(0,0,0,0.9);
+        }
+        th{
+          padding: 20px 15px;
+          text-align: left;
+          font-weight: 500;
+          font-size: 12px;
+          color: #fff;
+          text-transform: uppercase;
+        }
+        td{
+          padding: 15px;
+          text-align: left;
+          vertical-align:middle;
+          font-weight: 400;
+          font-size: 15px;
+          color: black;
+          border-bottom: solid 1px rgba(255,255,255,0.1);
+        }
+
+
+        /* demo styles */
+
+        
+        body{
+          background-image: linear-gradient(to right top, #5e2e49, #663c5f, #6b4c74, #6d5c8a, #6d6d9e, #6a7dae, #668cbb, #649cc6, #68adcd, #73bed2, #85cdd5, #9bdcd8);
+          font-family: 'Roboto', sans-serif;
+        }
+        section{
+          margin: 50px;
+        }
+
+
+        /* follow me template */
+        .made-with-love {
+          margin-top: 40px;
+          padding: 10px;
+          clear: left;
+          text-align: center;
+          font-size: 10px;
+          font-family: arial;
+          color: #fff;
+        }
+        .made-with-love i {
+          font-style: normal;
+          color: #F50057;
+          font-size: 14px;
+          position: relative;
+          top: 2px;
+        }
+        .made-with-love a {
+          color: #fff;
+          text-decoration: none;
+        }
+        .made-with-love a:hover {
+          text-decoration: underline;
+        }
+
+
+        /* for custom scrollbar for webkit browser*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        } 
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        } 
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+        }
+    </style>
     <title>  
         History  
     </title>  
+    <div class="container1 indigo borderYtoX">
+        <a href="home.php">Home</a>
+        <a href="user_history.php">History</a>     
+        <a href="logout.php">Logout </a> 
+
+    </div>   
 </head>  
   
 <body>  
@@ -66,13 +229,20 @@ echo $_SESSION['userid'];
              
         // $data=mysqli_fetch_assoc($result1);   
                  
-        echo "<table><tr><th>Restaurnat id</th><th>Food Name</th><th>Water</th><th>Calories</th><th>Land</th><th>Date</th></tr>";
-
+        echo '<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr><th>Restaurnat id</th><th>Food Name</th><th>Water</th><th>Calories</th><th>Land</th><th>Date</th></tr>
+      </thead>
+    </table>
+  </div>';
+        echo '<div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0"><tbody>';
 
          while($row =mysqli_fetch_assoc($result1)) {
             echo "<tr><td>" . $row["restaurant_id"]. "</td><td>" . $row["foodname"]. "</td><td>" . $row["water"]. "</td><td>" . $row["calories"].  "</td><td>" . $row["land"]. "</td><td>" . $row["dateins"]."</td></tr>";
     }
-    echo "</table>";
+    echo "</tbody></table></div>";
         // while($row = mysql_fetch_array($result)) {
         //      echo print_r($row); 
         // }
