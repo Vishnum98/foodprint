@@ -832,25 +832,26 @@
                 $data1=mysqli_fetch_assoc($res);
                 $foodid=$data1['food_id'];
             $sql="select water,calories,land,cusine from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
-            $result = mysqli_query ( $conn , $sql );   // Executes sql code
+            $result = mysqli_query ( $conn , $sql );  
              
             if ( mysqli_num_rows( $result ) > 0 ){
              
-                $data=mysqli_fetch_assoc($result);     // Getting password from db         
+              $data=mysqli_fetch_assoc($result);    
                          
-                    //data has water,calories,land
-                    $water=$percent*$data["water"]/100;
-                    $calories=$percent*$data["calories"]/100;
-                    $land=$percent*$data["land"]/100;
-                    $cusine=$data["cusine"];
-                    // echo $water +"   calories= "+ $calories +"  land= "+$land;
-                    $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE userid= '$userid'";   
-                    $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
-                        $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
-                    $result1 = mysqli_query ( $conn , $sql1 );   
-                    $result1 = mysqli_query ( $conn , $sql3 );   
-                        $result2 = mysqli_query ( $conn , $sql4 );   
-                    // header('Location: home.php');          
+                //data has water,calories,land
+                $water=$percent*$data["water"]/100;
+                $calories=$percent*$data["calories"]/100;
+                $land=$percent*$data["land"]/100;
+                $cusine=$data["cusine"];
+                // echo $water +"   calories= "+ $calories +"  land= "+$land;
+                $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water' WHERE userid= '$userid'";   
+                $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
+                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
+                
+                $result1 = mysqli_query ( $conn , $sql1 );   
+                $result1 = mysqli_query ( $conn , $sql3 );   
+                    $result2 = mysqli_query ( $conn , $sql4 );   
+                // header('Location: home.php');          
                        
             }else{ 
                     echo " Incorrect data ";
