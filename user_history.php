@@ -212,7 +212,6 @@ echo $_SESSION['userid'];
     	 
             
     }else
-
     { echo " First Time user ";
      
     }
@@ -225,10 +224,7 @@ echo $_SESSION['userid'];
 
     $sql="select a.restaurant_id,b.foodname, a.water , a.calories , a.land , a.dateins from orderdata a join foodmaster b on a.food_id=b.food_id where a.user_id='$userid' order by a.dateins DESC";
     $result1 = mysqli_query ( $conn , $sql );
-    if ( mysqli_num_rows( $result1 ) > 0 ){
-             
-        // $data=mysqli_fetch_assoc($result1);   
-                 
+    if ( mysqli_num_rows( $result1 ) > 0 ){       
         echo '<div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -238,10 +234,17 @@ echo $_SESSION['userid'];
   </div>';
         echo '<div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0"><tbody>';
-
+        $data1=[];
+        $data2=[];
          while($row =mysqli_fetch_assoc($result1)) {
+            $time=strtotime($row["dateins"])*1000;
+            $water=intval($row["water"]);
+            $calories=intval($row["calories"]);
+            $data1[] = [$time, $water];
+            $data2[] = [$time, $calories];
+            // $data1.push([$time,$val]);
             echo "<tr><td>" . $row["restaurant_id"]. "</td><td>" . $row["foodname"]. "</td><td>" . $row["water"]. "</td><td>" . $row["calories"].  "</td><td>" . $row["land"]. "</td><td>" . $row["dateins"]."</td></tr>";
-    }
+          }
     echo "</tbody></table></div>";
         // while($row = mysql_fetch_array($result)) {
         //      echo print_r($row); 
@@ -258,10 +261,73 @@ echo $_SESSION['userid'];
 
 
 
+<?php 
+echo json_encode($data1, JSON_NUMERIC_CHECK);?>
 
 
-<h2><a href="logout.php">Logout here</a> </h2>  
-  
+<!-- <h2><a href="logout.php">Logout here</a> </h2>   -->
+  <div id="container3" style="height: 400px; min-width: 310px"></div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script type="text/javascript">
+    
+var chart = new Highcharts.stockChart('container3', {
+
+
+    // rangeSelector: {
+    //   selected: 3
+    // },
+
+    title: {
+      text: 'Water Footprint'
+    },
+    tooltip: {
+    backgroundColor: '#FCFFC5',
+    borderColor: 'black',
+    borderRadius: 10,
+    borderWidth: 3,
+
+            valueDecimals: 2,
+            split: true
+},
+ 
+    series: [{
+      name: 'Water',
+      data: <?php echo json_encode($data1, JSON_NUMERIC_CHECK);?>
+      
+    },{
+      name: 'Calories',
+      data: <?php echo json_encode($data2, JSON_NUMERIC_CHECK);?>
+      
+    }]
+  });
+// $.getJSON('data.json', function (data) {
+//   // Create the chart
+//   Highcharts.stockChart('container3', {
+
+
+//     rangeSelector: {
+//       selected: 1
+//     },
+
+//     title: {
+//       text: 'AAPL Stock Price'
+//     },
+
+//     series: [{
+//       name: 'AAPL',
+//       data: data,
+//       tooltip: {
+//         valueDecimals: 2
+//       }
+//     }]
+//   });
+// });
+
+
+</script>
   
 </body>  
   

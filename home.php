@@ -1,18 +1,18 @@
 <?php  
-session_start();  
-  
-if(!$_SESSION['username'])  
-{  
-  
-    header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
-}  
+    session_start();  
+      
+    if(!$_SESSION['username'])  
+    {  
+      
+        header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
+    }  
 
-$conn = mysqli_connect("localhost", "root", "", "db");
-	    if (!$conn) {
-	        die("Error connecting to database: " . mysqli_connect_error());
-	    }
-require_once('config.php') ;	
-$userid=$_SESSION["userid"];
+    $conn = mysqli_connect("localhost", "root", "", "db");
+    	    if (!$conn) {
+    	        die("Error connecting to database: " . mysqli_connect_error());
+    	    }
+    require_once('config.php') ;	
+    $userid=$_SESSION["userid"];
 
 ?> 
 <html>  
@@ -244,11 +244,12 @@ $userid=$_SESSION["userid"];
 
 
 
-
+<!-- 
 <h1><a href="logout.php">Logout here</a> </h1>  
-<h2><a href="user_history.php">History</a> </h2>  
+<h2><a href="user_history.php">History</a> </h2>   -->
   
   
+
 </body>  
   
 </html>  

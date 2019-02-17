@@ -101,7 +101,7 @@
                     $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
                     $_SESSION["username"] = $username; 
                     $_SESSION["userid"] = $data["userid"]; 
-                    header('Location: home.php');           
+                    header('Location: new_home.php');           
                 }         
             }
              

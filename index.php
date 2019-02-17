@@ -799,7 +799,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 12;
+            z-index: 100!important;
             box-sizing: border-box;
         }
                     /*h1 {
@@ -1327,7 +1327,7 @@ textarea.form-control {
 </head>
 
 <body>
-<a href="#" id="scroll" style="display: none;"><span></span></a>
+
  
     <header>
         <div class="header-top clearfix">
@@ -1363,7 +1363,7 @@ textarea.form-control {
             </ul>
         </nav>
     </header>
-
+    <a href="#Home" id="scroll" style="display: none;"><span></span></a>
     <div id="fullpage">
         <div class="section " id="section0">
             <h1></h1></div>
@@ -1520,29 +1520,29 @@ textarea.form-control {
             <figure class="rounded-circle">
               <img src="static\images\vi.jpg">
               <div class="contact">
-                <a href="https://linkedin.com/in/vishnu-m" class="tw"></a>
-                <a href="https://linkedin.com/in/vishnu-m" class="fb"></a>
-                <a href="https://linkedin.com/in/vishnu-m" class="gp"></a>
-                <a href="https://linkedin.com/in/vishnu-m" class="ma"></a>
+                <a href="https://linkedin.com/in/vishnu-m" target="_blank" class="tw"></a>
+                <a href="https://linkedin.com/in/vishnu-m" target="_blank" class="fb"></a>
+                <a href="https://linkedin.com/in/vishnu-m" target="_blank" class="gp"></a>
+                <a href="https://linkedin.com/in/vishnu-m" target="_blank" class="ma"></a>
               </div>
             </figure>
             
             <figure class="rounded-circle">
               <img src="static\images\sa.jpg">
               <div class="contact">
-                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" class="tw"></a>
-                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" class="fb"></a>
-                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" class="gp"></a>
-                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" class="ma"></a>
+                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" target="_blank" class="tw"></a>
+                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" target="_blank" class="fb"></a>
+                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" target="_blank" class="gp"></a>
+                <a href="https://www.linkedin.com/in/sumit-saboo-029b0a135/" target="_blank" class="ma"></a>
               </div>
             </figure>
             <figure class="rounded-circle">
               <img src="static\images\gu.jpg">
               <div class="contact">
-                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" class="tw"></a>
-                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" class="fb"></a>
-                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" class="gp"></a>
-                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" class="ma"></a>
+                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" target="_blank"  class="tw"></a>
+                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" target="_blank" class="fb"></a>
+                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" target="_blank" class="gp"></a>
+                <a href="https://www.linkedin.com/in/utkarsh-gupta-708959113/" target="_blank" class="ma"></a>
               </div>
             </figure>
             
@@ -1578,7 +1578,7 @@ textarea.form-control {
         
         
         <script type="text/javascript" src="static/js/fullpage.js"></script>
-        <script type="text/javascript" src="static/js/examples.js"></script>
+        <!-- <script type="text/javascript" src="static/js/examples.js"></script> -->
 
         <script type="text/javascript">
 
@@ -1675,7 +1675,7 @@ $('#return-to-top').click(function() {      // When arrow is clicked
           die("Error connecting to database: " . mysqli_connect_error());
       }
       $name=$_POST['name'];
-      $mobile=$_POST['mobile'];
+      $mobile=$_POST['phone'];
       $number=$_POST['phone'];
       $email=$_POST['email'];
 
