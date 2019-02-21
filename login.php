@@ -104,7 +104,7 @@
             $username=$_POST['username'];
             $password=$_POST['password'];
             $_SESSION['login_user']=$username; 
-            $sql="select res_id from restaurant where res_name='$username' and res_password='$password' ";    
+            $sql="select * from restaurant where username='$username' and res_password='$password' ";    
             $result = mysqli_query ( $conn , $sql );   // Executes sql code
 
             if ( mysqli_num_rows( $result ) > 0 ){
@@ -112,9 +112,9 @@
                 $data=mysqli_fetch_assoc($result);     // Getting password from db         
                 {         
                     $_SESSION['loggedin'] = "true";  // session memory for checking logged in or not             
-                    $_SESSION["username"] = $username; 
+                    $_SESSION["username"] = $data["username"]; 
                     $_SESSION["userid"] = $data["res_id"]; 
-                    header('Location: res_home.php');           
+                    header('Location: newres_home.php');           
                 }         
             }
              

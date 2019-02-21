@@ -12,8 +12,8 @@
               die("Error connecting to database: " . mysqli_connect_error());
           }
     require_once('config.php') ;  
-    $userid=$_SESSION["userid"];
-    $username=$_SESSION['username'];
+    $resid=$_SESSION["userid"];
+    $resname=$_SESSION['username'];
 
 ?> 
 <!DOCTYPE html>
@@ -51,59 +51,22 @@
                     die("Error connecting to database: " . mysqli_connect_error());
                 }
                 // $userid=1; 
-                $sq="select * from userdata where userid='$userid'";
+                $sq="select * from restaurant where res_id='$resid'";
                 $ans=mysqli_query($conn,$sq); 
-                 $beverages=0;
-                      $chinese_veg=0;
-                      $chinese_nveg=0;
-                      $breads=0;
-                      $indian_veg=0;
-                      $indian_nveg=0;
-                      $snacks_veg=0;
-                      $snacks_nveg=0;
                 if ( mysqli_num_rows( $ans ) > 0 ){           
                  while($row3 =mysqli_fetch_assoc($ans)) {                  
                     $userwater=intval($row3["water"]);
                     $usercalories=intval($row3["calories"]);
                     $userland=intval($row3["land"]);
-                    $username=($row3["username"]);
-                    $beverages=intval($row3["beverages"]);
-                    $chinese_veg=intval($row3["chinese_veg"]);
-                    $chinese_nveg=intval($row3["chinese_nveg"]);
-                    $breads=intval($row3["breads"]);
-                    $indian_veg=intval($row3["indian_veg"]);
-                    $indian_nveg=intval($row3["indian_nveg"]);
-                    $snacks_veg=intval($row3["snacks_veg"]);
-                    $snacks_nveg=intval($row3["snacks_nveg"]);
-                    $foodwaste=intval($row3["weight"]);
-                    $cusum=intval($beverages+$chinese_veg+$chinese_nveg+$breads+$indian_veg+$indian_nveg+$snacks_veg+$snacks_nveg);
-                    if ($cusum>0) {                      
-                      $beverages=intval($beverages/$cusum*100);
-                      $chinese_veg=intval($chinese_veg/$cusum*100);
-                      $chinese_nveg=intval($chinese_nveg/$cusum*100);
-                      $breads=intval($breads/$cusum*100);
-                      $indian_veg=intval($indian_veg/$cusum*100);
-                      $indian_nveg=intval($indian_nveg/$cusum*100);
-                      $snacks_veg=intval($snacks_veg/$cusum*100);
-                      $snacks_nveg=intval($snacks_nveg/$cusum*100);
-                    }else{
-                      $beverages=0;
-                      $chinese_veg=0;
-                      $chinese_nveg=0;
-                      $breads=0;
-                      $indian_veg=0;
-                      $indian_nveg=0;
-                      $snacks_veg=0;
-                      $snacks_nveg=0;
-                    }
-                
+                    $username=($row3["res_name"]);                
+                    $foodwaste=intval($row3["weight"]);                    
                     // echo "indianveg perceny".$indian_nveg;
                   }
                 }else
                 { echo " Userid not found ";     
                 }
                 //rank code starts
-                $query="SELECT  FIND_IN_SET( water, ( SELECT GROUP_CONCAT(DISTINCT water ORDER BY water ASC ) FROM userdata ) ) AS rank FROM userdata WHERE userid='$userid'";
+                $query="SELECT  FIND_IN_SET( water, ( SELECT GROUP_CONCAT(DISTINCT water ORDER BY water ASC ) FROM restaurant ) ) AS rank FROM restaurant WHERE res_id='$resid'";
 
                 $res2 = mysqli_query ( $conn , $query );
 
@@ -111,10 +74,10 @@
                     $data=mysqli_fetch_assoc($res2);                                      
                     $userrank=$data["rank"];                                                              
                 }else{
-                     echo " Userid not found ";                    
+                     echo " Res not found ";                    
                 }
 
-                $sc="select count(*) as count from userdata";
+                $sc="select count(*) as count from restaurant";
                 $res2 = mysqli_query ( $conn , $sc );
 
                 if ( mysqli_num_rows( $res2 ) > 0 ){                     
@@ -130,7 +93,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="new_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
+              <a href="newres_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -155,9 +118,9 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
+                  <li><a href="newres_home.php"><i class="fa fa-home"></i>Home </a></li>
                   <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                  
+                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                 
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
@@ -297,7 +260,7 @@
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-line-chart"></i> Current Rank</span>
               <div class="count green"><?php echo "".$userrank ?></div>
-              <span class="count_bottom">Out of <i class="green"><?php echo $count?> </i> Users </span>
+              <span class="count_bottom">Out of <i class="green"><?php echo $count?> </i> Restaurants </span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-cutlery"></i> Total Food Wasted</span>
@@ -309,6 +272,7 @@
               <div class="count">IDK</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
             </div>
+            
           </div>
           <!-- /top tiles -->
 
@@ -334,19 +298,13 @@
                     <br>
                     <form method="post" class="form-horizontal form-label-left">
 
-                      
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Restaurant</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">                          
-                          <select name="resid" id="resid" class="form-control" >
-                            <option value="1">Hide Out Cafe</option>
-                            <option value="2">Shiv Sagar</option>
-                            <option value="3">Oriental Spice</option>
-                            <option value="4">VNIT Canteen</option>
-                            <option value="5">Others</option>
-                          </select>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Number</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">
+                          <input type="text" name="number" id="percent" class="form-control" placeholder="Default Input">
                         </div>
-                      </div>                        
+                      </div>
+                                           
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Food</label>
@@ -384,216 +342,7 @@
 
           </div>
           <br>
-          <div class="row">
-
-
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320">
-                
-                <div class="x_title">
-                    <h2>Leaderboard</h2>
-                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
-                     <li>.</li><li></li>
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content" style="display: block; margin-top: 0px!important;">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Rank</th>
-                          <th>Name</th>
-                          <th>Water</th>                          
-                        </tr>
-                      </thead>
-                      <tbody>                        
-                         <?php
-                            //print Leaderboard
-                            
-                              $sql="SELECT username,water,FIND_IN_SET( water, ( SELECT GROUP_CONCAT(DISTINCT water ORDER BY water ASC ) FROM userdata ) ) AS rank FROM userdata ORDER By rank ASC LIMIT 5";
-                              $result1 = mysqli_query ( $conn , $sql );
-                              if ( mysqli_num_rows( $result1 ) > 0 ){                  
-                                   while($row =mysqli_fetch_assoc($result1)) {           
-                                      echo "<tr><th scope=\"row\">" . $row["rank"]. "</th><td>" . $row["username"]. "</td><td>" . $row["water"]."</td></tr>";
-                                    }        
-                              }else
-                              { echo " Leaderboard error";     
-                              }
-                              ?>
-                        <tr style="    border: 2px solid #000000c2;">
-                          <th scope="row"><?php echo $userrank ?></th>
-                          <td><?php echo $username ?></td>
-                          <td><?php echo $userwater ?></td>
-                          
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320 overflow_hidden">
-                <div class="x_title" >
-                  <h2>Overall Wastage</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content" style="padding-bottom: 0px!important;float: unset!important;">
-                  <table class="" style="width:100%">
-                    <tbody><tr>
-                      <th style="width:37%;">
-                        <p> </p>
-                      </th>
-                      <th>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                          <p class="">Cuisine</p>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                          <p class="">Percentage</p>
-                        </div>
-                      </th>
-                    </tr>
-                    <tr>
-                      <td><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;"></iframe>
-                        <canvas class="canvasDoughnut1" height="140" width="140" style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
-                      </td>
-                      <td>
-                        <table class="tile_info">
-                          <tbody><tr>
-                            <td>                             
-                              <p><i class="fa fa-square blue"></i>Beverages </p>
-                            </td>
-                            <td><?php echo $beverages."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square green"></i>Chinese Veg </p>
-                            </td>
-                            <td><?php echo $chinese_veg."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square grey" style="color: grey"></i>Chinese Non Veg </p>
-                            </td>
-                            <td><?php echo $chinese_nveg."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square purple"></i>Breads </p>
-                            </td>
-                            <td><?php echo $breads."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square " style="color: #9cc2cb"></i>Indian Veg </p>
-                            </td>
-                            <td><?php echo $indian_veg."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square " style="color: #E74C3C"></i>Indian Non Veg </p>
-                            </td>
-                            <td><?php echo $indian_nveg."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square yellow" style="color: #e8e884"></i>Snacks Veg </p>
-                            </td>
-                            <td><?php echo $snacks_veg."%" ?></td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square black" style="color: #fba12e"></i>Snacks Non Veg </p>
-                            </td>
-                            <td><?php echo $snacks_nveg."%" ?></td>
-                          </tr>
-                          
-                        </tbody></table>
-                      </td>
-                    </tr>
-                  </tbody></table>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320">
-                <div class="x_title">
-                  <h2>Daily Rating</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                 
-                  <div>
-                    <table>
-  <tr>
-    <td style="padding-right:10px ;padding-top: 20%">
-      <label for="input-3" class="control-label" style="width: 100%">Here is your daily shitty usage u madarchod</label>
-    </td></tr><tr>
-    <td>
-      <input id="input-3" name="input-3" value=
-      <?php
-
-      $qu="SELECT SUM(water) as todaywater from orderdata where cast(orderdata.dateins as date) = cast(CURRENT_DATE() as date) and user_id='$userid'";
-      $resul=mysqli_query($conn,$qu);
-       if ( mysqli_num_rows( $resul ) > 0 ){ 
-           $data2=mysqli_fetch_assoc($resul);
-           $todaywater=intval($data2["todaywater"]);
-           $todaywater=5-($todaywater/200);
-           if($todaywater<0)
-            echo "0";
-           else
-            echo $todaywater;
-        }else
-        { echo "5";     
-        }
-
-      
-      ?> class="rating-loading">
-    </td>
-  </tr>
-</table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+         
           <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -614,11 +363,11 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Restaurant</th>
+                          <th>Customer Name</th>
                           <th>Food Name</th>
                           <th>Water</th>
                           <th>Calories</th>
-                          <th>Land</th>
+                          <th>CO²</th>
                           <th>Date</th>
                         </tr>
                       </thead>
@@ -626,11 +375,11 @@
                          <?php
                  //print orders
                            
-                              $sql="select restaurant.res_name,b.foodname, a.water , a.calories , a.land , DATE_FORMAT(a.dateins, '%d-%m-%y %H:%i %p') AS dateins from orderdata a join foodmaster b on a.food_id=b.food_id JOIN restaurant on restaurant.res_id=a.restaurant_id where a.user_id='$userid' order by a.dateins DESC";
+                              $sql="select userdata.username,b.foodname, a.water , a.calories , a.land , DATE_FORMAT(a.dateins, '%d-%m-%y %H:%i %p') AS dateins from orderdata a join foodmaster b on a.food_id=b.food_id JOIN userdata on userdata.userid=a.user_id where a.restaurant_id='$resid' order by a.dateins DESC";
                               $result1 = mysqli_query ( $conn , $sql );
                               if ( mysqli_num_rows( $result1 ) > 0 ){                  
                                    while($row =mysqli_fetch_assoc($result1)) {           
-                                      echo "<tr><td>" . $row["res_name"]. "</td><td>" . $row["foodname"]. "</td><td>" . $row["water"]. "</td><td>" . $row["calories"].  "</td><td>" . $row["land"]. "</td><td>" . $row["dateins"]."</td></tr>";
+                                      echo "<tr><td>" . $row["username"]. "</td><td>" . $row["foodname"]. "</td><td>" . $row["water"]. "</td><td>" . $row["calories"].  "</td><td>" . $row["land"]. "</td><td>" . $row["dateins"]."</td></tr>";
                                     }        
                               }else
                               { echo " First Time user ";     
@@ -642,16 +391,12 @@
                 </div>
               </div>          
         </div>
-
-     
-
-
+    
         <!-- /page content -->
-
       </div>
     </div>
 
-    <!-- jQuery -->
+   <!-- jQuery -->
     <script src="static/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -660,78 +405,18 @@
     <!-- NProgress -->
     <script src="static/vendors/nprogress/nprogress.js"></script>
     <script src="static/vendors/Chart.js/dist/Chart.min.js"></script>
-    <script src="static/vendors/echarts/dist/echarts.min.js"></script>
-      <!-- bootstrap-progressbar -->
-    <!-- <script src="static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> -->
-      <!-- gauge.js -->
-    <script src="static/vendors/gauge.js/dist/gauge.min.js"></script>
+    <script src="static/vendors/echarts/dist/echarts.min.js"></script>    
     <!-- Custom Theme Scripts -->
     <script src="static/build/js/custom.min.js"></script>
     <script src="static/vendors/iCheck/icheck.min.js"></script>
     <!-- Datatables -->
     <script src="static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-   
-  
-    <script src="static/js/star-rating.min.js"></script>
+    <script src="static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>       
     <script src="static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
+   
     <script type="text/javascript"> 
 
-      var chart_doughnut_settings = {
-        type: 'doughnut',
-        tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-        data: {
-          labels: [
-            "Beverages",
-            "Chinese Veg",
-            "Chinese Non Veg",
-            "Breads",
-            "Indian Veg",
-            "Indian Non Veg",
-            "Snacks Veg",
-            "Snacks Non Veg"
-          ],
-          datasets: [{
-            data: [<?php
-              echo $beverages.",".$chinese_veg.",".$chinese_nveg.",".$breads.",".$indian_veg.",".$indian_nveg.",".$snacks_veg.",".$snacks_nveg;
-              ?>],
-            backgroundColor: [
-              "blue",
-              "green",
-              "grey",
-              "purple",
-              "#9cc2cb",
-              "#E74C3C",
-              "#e8e884",
-              "#fba12e"
-            ],
-            hoverBackgroundColor: [
-              "purple",
-              "purple",
-              "purple",
-              "purple",
-              "purple",
-              "purple",
-              "purple",
-              "purple"
-            ]
-          }]
-        },
-        options: { 
-          legend: false, 
-          responsive: false 
-        }
-      }
-    
-      $('.canvasDoughnut1').each(function(){
-        
-        var chart_element = $(this);
-        var chart_doughnut = new Chart( chart_element, chart_doughnut_settings);
-        
-      }); 
-
-       $('#input-3').rating({displayOnly: true, step: 0.5});
 
 
       var diction = {
@@ -741,24 +426,17 @@
                       4: ["Milk","Black Coffee","Black Tea","Hot Coffee ","Cold coffee","Soft Drink","Lemonade","Apple Juice","Pineapple Juice","Orange juice","Grapefruit juice","Veg Noodles","Veg Manchurian","Paneer Manchurian","Chicken Noodles","Paneer Paratha","Masala Dosa","Plain Dosa","Idli Sambhar","Uttapam","Sambar Wada","chola bathura","Vada Pav","chicken Biryani","Masala Omlette","Masala Fries","Veg  Sandwich","Masala Maggie","Cheese Maggie","Panner Maggie"],
                       5: ["Milk","Black Coffee","Black Tea","Hot Coffee ","Hot Coffee with cream","Cold coffee","Cold coffee with ice cream","Lemon Tea","Milkshake without Chocolate","Milkshake with chocolate","Dryfruit Milkshake","Lemonade","Soft Drink","Float","Virgin Mojito","Apple Juice","Pineapple Juice","Orange juice","Grapefruit juice","Veg Noodles","Paneer Noodles","Chilly potato","Chilly paneer","Veg Manchurian","Paneer Manchurian","Vegetable choupsey","Spring roll","Veg momos ","Paneer momos","Veg hot n sour soups","Carrot soup","Veg manchow soups","Cream of tomato soup","Sweet corn soup","Chicken Noodles","Chilly chicken","Chicken manchurian","Chicken momos","Chicken hot n sour soup","Chicken manchow soup","Aloo paratha","Onion Paratha","Gobhi Paratha","Mix Paratha","Paneer Paratha","naan","Roti","Butter naan","Butter Roti","Lacha Paratha","Masala Dosa","Plain Dosa","Idli Sambhar","Uttapam","Sambar Wada","chola bathura","Vada Pav","Shahi Paneer ","Rice","Jeera rice","Veg Biryani","Paneer butter masala","paneer tikka masala","Mix veg","Dal fry","Dal tadka","Dal Makhani","chicken Biryani","Mutton biryani","Butter chicken","Chicken Tikka Masala","Masala Omlette","Cheese omlette","Bacon and egg","Masala Burger","Cheese Burger","Paneer Burger","Paneer Pizza","Margherita Pizza","Veg cheese Pizza","Masala Fries","Cheese Fries ","Chocolate Sandwich","Veg  Sandwich","Cheese Garlic sandwich","Cheese Corn Sandwich","cheese toast","Masala Pasta ","Cheese Pasta","Panner Pasta","Masala Maggie","Cheese Maggie","Panner Maggie","Chicken Burger","Cheese chicken burger","Chicken Pizza","Chicken Cheese Pizza","Chicken Sandwich","Chicken Mayo","Chicken Pasta","Chicken Maggie"]
                     }
-
-                    // bind change event handler
-      $('#resid').change(function() {
-        // get the second dropdown
-        $('#foodname').html(
+$('#foodname').html(
             // get array by the selected value
-            diction[this.value]
-            // iterate  and generate options
-            .map(function(v) {
+            diction[<?php echo $resid ?>].map(function(v) {
               // generate options with the array element
               return $('<option/>', {
                 value: v,
                 text: v
               })
             })
-          )
-          // trigger change event to generate second select tag initially
-      }).change()
+          );
+     
       $('#datatable').dataTable({
         'order': [[ 5, 'desc' ]]
       });
@@ -766,8 +444,9 @@
 
         
         // $sql="select DATE_FORMAT(dateins, '%e %b %y %H:%i') dateins,water,calories,land from orderdata where user_id=1 order by dateins ASC";
-          $sql="SELECT DATE_FORMAT(dateins, '%d-%m-%y %l%p') AS dateins , SUM(water) as water,SUM(calories) as calories,SUM(land) as land FROM orderdata WHERE user_id = '$userid' GROUP BY DAY(dateins), HOUR(dateins) DIV 2 ORDER BY DATE(dateins) ASC , dateins DESC";
+          $sql="SELECT DATE_FORMAT(dateins, '%d-%m-%y') AS dateins , SUM(water) as water,SUM(calories) as calories,SUM(land) as land FROM orderdata WHERE restaurant_id = '$resid' GROUP BY DAY(dateins) ORDER BY DATE(dateins) ASC , dateins DESC";
           // echo "".$sql;
+
         $result1 = mysqli_query ( $conn , $sql );
         if ( mysqli_num_rows( $result1 ) > 0 ){
                  
@@ -788,12 +467,10 @@
 
               }            
         }else{
-         // echo " First Time user ";   
-          $data1=[0];
-            $data2=[0];
-            $data3=[0];
-            $data4=[0]; 
+         echo " First Time user ";     
         }
+
+        // echo("console.log('PHP: ".json_encode($data1, JSON_NUMERIC_CHECK)."');");
         ?>
 
           // if ($('#mybarChart1').length ){ 
@@ -846,25 +523,30 @@
     </script>
     <?php
     if (isset($_POST['submit']))
-        {     
-            // session_start();
-              
-        $resid=$_POST['resid'];
-        // $foodid=$_POST['foodid'];
-        $percent=$_POST['percent'];
-            $foodname=$_POST['foodname'];
-            //add user id code later
-            // $userid='1';
-        
-            //getting food id from foodname 
-            //todo populate foodname based on restaurant selected
-            $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
-            $res=mysqli_query ( $conn , $fid );
-            //check correct restaurant and food id
-            if ( mysqli_num_rows( $res ) > 0 ){
+    {     
 
-                $data1=mysqli_fetch_assoc($res);
-                $foodid=$data1['food_id'];
+      $number=$_POST['number'];
+      // $foodid=$_POST['foodid'];
+      $percent=$_POST['percent'];
+      $foodname=$_POST['foodname'];
+      
+      $main="select userid from userdata where mobile='$number'";
+      $mainr=mysqli_query($conn,$main);
+      // echo "".$main;
+      if ( mysqli_num_rows( $mainr ) > 0 ){
+        $datar=mysqli_fetch_assoc($mainr);
+        $userid=$datar["userid"];
+      }else{
+        // change this number very important
+        $userid=8;
+      }
+        $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
+        $res=mysqli_query ( $conn , $fid );
+        //check correct restaurant and food id
+        if ( mysqli_num_rows( $res ) > 0 ){
+
+            $data1=mysqli_fetch_assoc($res);
+            $foodid=$data1['food_id'];
             $sql="select water,calories,land,cusine,weight from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
             $result = mysqli_query ( $conn , $sql );  
              
@@ -881,8 +563,8 @@
                 // echo $water +"   calories= "+ $calories +"  land= "+$land;
                 $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water',weight=weight+'$weight' WHERE userid= '$userid'";   
                 $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
-                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land',weight=weight+'$weight' WHERE res_id= '$resid'";
-                
+                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
+                 // echo("console.log('PHP: ".json_encode($sql1, JSON_NUMERIC_CHECK)."');");
                 $result1 = mysqli_query ( $conn , $sql1 );   
                 $result1 = mysqli_query ( $conn , $sql3 );   
                     $result2 = mysqli_query ( $conn , $sql4 );   
@@ -895,6 +577,7 @@
         }else{
             echo "Incorrect Restaurant and food match";
         }
+      
    
      
     }

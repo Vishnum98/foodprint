@@ -21,3 +21,5 @@ CREATE TABLE `restaurant` (
 	`land` INT,
 	PRIMARY KEY (`res_id`)
 );
+//important to create a user called unregistered 
+then use its id in restaurant homepage if mobile number is not found
