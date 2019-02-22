@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Food Print | Resources</title>
+    <title>Food Print | How to use</title>
 
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
     </style>
   </head>
 
-  <body class="nav-md">    
+  <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -54,17 +54,32 @@
             </div>
 
             <div class="clearfix"></div>
+            <?php
+             
+                $sql="select path from userdata where userid='$userid'";
+                $ans=mysqli_query($conn,$sql); 
+                if ( mysqli_num_rows( $ans ) > 0 ){           
+                 while($row3 =mysqli_fetch_assoc($ans)) {
+                  $profilepic=$row3["path"];
+                 }}
+                 if($profilepic == ""){
+                    $profilepic='static/images/pro.jpg';
+                 }
 
+            ?>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="static/images/vi.jpg" alt="..." class="img-circle profile_img">
+              <div class="row">
+              <div class="profile_pic col-sm-4">
+                <img src=<?php echo $profilepic ?> alt="..." class="img-circle profile_img">
+                <!-- <div class="img-circle profile_img" style="background-image: url(<?php echo $profilepic ?> )"></div> -->
               </div>
-              <div class="profile_info">
+              <div class="profile_info col-sm-8">
                 <span>Welcome,</span>
                 <h2><?php echo $_SESSION['username'] ?></h2>
               </div>
               <div class="clearfix"></div>
+              </div>
             </div>
             <!-- /menu profile quick info -->
 
@@ -77,30 +92,21 @@
                 <ul class="nav side-menu">
                   <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
                   <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>
-                  <li><a href=""><i class="fa fa-laptop"></i>World Water Footprint</a></li>
+                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                  
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
+              <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
+             
+              <a data-toggle="tooltip" data-placement="top" title="Logout" style="width: 100%" href="logout.php">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
             <!-- /menu footer buttons -->
+           
           </div>
         </div>
 
@@ -115,79 +121,16 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/vi.jpg" alt=""><?php echo $_SESSION['username'] ?>
+                    <img src=<?php echo $profilepic ?> alt=""><?php echo $_SESSION['username'] ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="profile.php"> Profile</a></li>
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
             </nav>
           </div>

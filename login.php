@@ -53,19 +53,23 @@
 
           <div id="register" class="animate form registration_form">
             <section class="login_content">
-              <form>
+              <form method="post">
                 <h1>Create Account</h1>
                 <div>
-                  <input type="text" class="form-control" placeholder="Username" required="" />
+                  <input id="username1" name= "username1" type="text" class="form-control" placeholder="Username" required="" />
                 </div>
                 <div>
-                  <input type="email" class="form-control" placeholder="Email" required="" />
+                  <input id="email1" name= "email1" type="email" class="form-control" placeholder="Email" required="" />
                 </div>
                 <div>
-                  <input type="password" class="form-control" placeholder="Password" required="" />
+                  <input id="mobile1" name= "mobile1" type="text" class="form-control" placeholder="Mobile" required="" />
                 </div>
                 <div>
-                  <a class="btn btn-default submit" href="">Submit</a>
+                   <input id="password1" name= "password1" type="password" class="form-control" placeholder="Password" required="" />
+                </div>
+                <div>
+                 <input class="btn btn-default" name="register1" type="submit" value=
+                              "Create" />
                 </div>
 
                 <div class="clearfix"></div>
@@ -154,12 +158,26 @@
                 }         
             }
              
-            else
-             
-            { echo " Your id or pswd incorrect ";
-             
+            else             
+            { echo " Your id or pswd incorrect ";             
+            }             
+    }else if(isset($_POST['register1'])){
+      
+          
+            $conn = mysqli_connect("localhost", "root", "", "db");
+
+            if (!$conn) {
+                die("Error connecting to database: " . mysqli_connect_error());
             }
-             
+             $username=$_POST['username1'];
+            $password=$_POST['password1'];
+            $email=$_POST['email1'];
+            $mobile=$_POST['mobile1'];
+            
+            $sql="INSERT INTO `userdata` (`userid`, `username`, `email`, `password`, `mobile`, `date`, `weight`, `water`, `calories`, `land`, `beverages`, `chinese_veg`, `chinese_nveg`, `breads`, `indian_veg`, `indian_nveg`, `snacks_veg`, `snacks_nveg`) VALUES (NULL, '$username', '$email', '$password', '$mobile', CURRENT_TIMESTAMP, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";    
+            $result = mysqli_query ( $conn , $sql );   // Executes sql code
+            header('Location: login.php');   
+            // header("Refresh:0");
     }
      
     ?>                

@@ -45,6 +45,63 @@
   </head>
 
   <body class="nav-md">
+      <?php
+    if (isset($_POST['submit']))
+        {     
+            // session_start();
+              
+        $resid=$_POST['resid'];
+        // $foodid=$_POST['foodid'];
+        $percent=$_POST['percent'];
+            $foodname=$_POST['foodname'];
+            //add user id code later
+            // $userid='1';
+        
+            //getting food id from foodname 
+            //todo populate foodname based on restaurant selected
+            $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
+            $res=mysqli_query ( $conn , $fid );
+            //check correct restaurant and food id
+            if ( mysqli_num_rows( $res ) > 0 ){
+
+                $data1=mysqli_fetch_assoc($res);
+                $foodid=$data1['food_id'];
+            $sql="select water,calories,land,cusine,weight from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
+            $result = mysqli_query ( $conn , $sql );  
+             
+            if ( mysqli_num_rows( $result ) > 0 ){
+             
+              $data=mysqli_fetch_assoc($result);    
+                         
+                //data has water,calories,land
+                $water=$percent*$data["water"]/100;
+                $calories=$percent*$data["calories"]/100;
+                $land=$percent*$data["land"]/100;
+                $cusine=$data["cusine"];
+                $weight=$percent*$data["weight"]/100;
+                // echo $water +"   calories= "+ $calories +"  land= "+$land;
+                $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water',weight=weight+'$weight' WHERE userid= '$userid'";   
+                $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
+                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land',weight=weight+'$weight' WHERE res_id= '$resid'";
+                
+                $result1 = mysqli_query ( $conn , $sql1 );   
+                $result1 = mysqli_query ( $conn , $sql3 );   
+                    $result2 = mysqli_query ( $conn , $sql4 );   
+                // header('Location: home.php');
+                // echo("<meta http-equiv='refresh' content='1'>");          
+                       
+            }else{ 
+                    echo " Incorrect data ";
+             
+            }
+        }else{
+            echo "Incorrect Restaurant and food match";
+        }
+   
+     
+    }
+     
+    ?>
     <?php
                 $conn = mysqli_connect("localhost", "root", "", "db");
                 if (!$conn) {
@@ -76,6 +133,7 @@
                     $snacks_veg=intval($row3["snacks_veg"]);
                     $snacks_nveg=intval($row3["snacks_nveg"]);
                     $foodwaste=intval($row3["weight"]);
+                    $profilepic=$row3["path"];
                     $cusum=intval($beverages+$chinese_veg+$chinese_nveg+$breads+$indian_veg+$indian_nveg+$snacks_veg+$snacks_nveg);
                     if ($cusum>0) {                      
                       $beverages=intval($beverages/$cusum*100);
@@ -125,6 +183,7 @@
                 }
 
     ?> 
+  
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -134,17 +193,32 @@
             </div>
 
             <div class="clearfix"></div>
+            <?php
+             
+                $sql="select path from userdata where userid='$userid'";
+                $ans=mysqli_query($conn,$sql); 
+                if ( mysqli_num_rows( $ans ) > 0 ){           
+                 while($row3 =mysqli_fetch_assoc($ans)) {
+                  $profilepic=$row3["path"];
+                 }}
+                 if($profilepic == ""){
+                    $profilepic='static/images/pro.jpg';
+                 }
 
+            ?>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="static/images/vi.jpg" alt="..." class="img-circle profile_img">
+              <div class="row">
+              <div class="profile_pic col-sm-4">
+                <img src=<?php echo $profilepic ?> alt="..." class="img-circle profile_img">
+                <!-- <div class="img-circle profile_img" style="background-image: url(<?php echo $profilepic ?> )"></div> -->
               </div>
-              <div class="profile_info">
+              <div class="profile_info col-sm-8">
                 <span>Welcome,</span>
                 <h2><?php echo $_SESSION['username'] ?></h2>
               </div>
               <div class="clearfix"></div>
+              </div>
             </div>
             <!-- /menu profile quick info -->
 
@@ -163,23 +237,15 @@
               </div>          
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
+              <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
+             
+              <a data-toggle="tooltip" data-placement="top" title="Logout" style="width: 100%" href="logout.php">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
             <!-- /menu footer buttons -->
+           
           </div>
         </div>
 
@@ -194,79 +260,16 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="static/images/vi.jpg" alt=""><?php echo $_SESSION['username'] ?>
+                    <img src=<?php echo $profilepic ?> alt=""><?php echo $_SESSION['username'] ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="profile.php"> Profile</a></li>
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="static/images/vi.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
+                
               </ul>
             </nav>
           </div>
@@ -642,7 +645,7 @@
                 </div>
               </div>          
         </div>
-
+  
      
 
 
@@ -844,61 +847,6 @@
             
           
     </script>
-    <?php
-    if (isset($_POST['submit']))
-        {     
-            // session_start();
-              
-        $resid=$_POST['resid'];
-        // $foodid=$_POST['foodid'];
-        $percent=$_POST['percent'];
-            $foodname=$_POST['foodname'];
-            //add user id code later
-            // $userid='1';
-        
-            //getting food id from foodname 
-            //todo populate foodname based on restaurant selected
-            $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
-            $res=mysqli_query ( $conn , $fid );
-            //check correct restaurant and food id
-            if ( mysqli_num_rows( $res ) > 0 ){
-
-                $data1=mysqli_fetch_assoc($res);
-                $foodid=$data1['food_id'];
-            $sql="select water,calories,land,cusine,weight from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
-            $result = mysqli_query ( $conn , $sql );  
-             
-            if ( mysqli_num_rows( $result ) > 0 ){
-             
-              $data=mysqli_fetch_assoc($result);    
-                         
-                //data has water,calories,land
-                $water=$percent*$data["water"]/100;
-                $calories=$percent*$data["calories"]/100;
-                $land=$percent*$data["land"]/100;
-                $cusine=$data["cusine"];
-                $weight=$percent*$data["weight"]/100;
-                // echo $water +"   calories= "+ $calories +"  land= "+$land;
-                $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water',weight=weight+'$weight' WHERE userid= '$userid'";   
-                $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
-                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land',weight=weight+'$weight' WHERE res_id= '$resid'";
-                
-                $result1 = mysqli_query ( $conn , $sql1 );   
-                $result1 = mysqli_query ( $conn , $sql3 );   
-                    $result2 = mysqli_query ( $conn , $sql4 );   
-                // header('Location: home.php');          
-                       
-            }else{ 
-                    echo " Incorrect data ";
-             
-            }
-        }else{
-            echo "Incorrect Restaurant and food match";
-        }
-   
-     
-    }
-     
-    ?>
+    
   </body>
 </html>
