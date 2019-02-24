@@ -7,10 +7,6 @@
         header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
     }  
 
-    $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
-          if (!$conn) {
-              die("Error connecting to database: " . mysqli_connect_error());
-          }
     require_once('config.php') ;  
     $userid=$_SESSION["userid"];
     $username=$_SESSION['username'];

@@ -8,6 +8,9 @@
     <link href="static/vendors/animate.css/animate.min.css" rel="stylesheet">
     <link href="static/build/css/custom.min.css" rel="stylesheet">
 </head>
+<?php
+require_once('config.php') ;
+?>
 <body class="login">
    <div>
         <a class="hiddenanchor" id="signup"></a>
@@ -97,11 +100,7 @@
 
         session_start();
              // connect to database
-$conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
 
-            if (!$conn) {
-                die("Error connecting to database: " . mysqli_connect_error());
-            }
 
             require_once('config.php') ;
             // session_start();
@@ -132,12 +131,7 @@ $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodpr
     else if (isset($_POST['submit'])){     
             session_start();
 
-            // connect to database
-            $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
-
-            if (!$conn) {
-                die("Error connecting to database: " . mysqli_connect_error());
-            }
+           
 
             require_once('config.php') ;
             // session_start();
@@ -163,12 +157,7 @@ $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodpr
             }             
     }else if(isset($_POST['register1'])){
       
-          
-            $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
-
-            if (!$conn) {
-                die("Error connecting to database: " . mysqli_connect_error());
-            }
+         
              $username=$_POST['username1'];
             $password=$_POST['password1'];
             $email=$_POST['email1'];
