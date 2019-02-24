@@ -1,19 +1,13 @@
 <?php  
-    session_start();  
-      
-    if(!$_SESSION['username'])  
-    {  
-      
-        header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
-    }  
+  
 
     $conn = mysqli_connect("localhost", "root", "", "db");
           if (!$conn) {
               die("Error connecting to database: " . mysqli_connect_error());
           }
     require_once('config.php') ;  
-    $userid=$_SESSION["userid"];
-    $username=$_SESSION['username'];
+    $userid=1;
+    $username='Demo';
 
 ?> 
 <!DOCTYPE html>
@@ -194,22 +188,13 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/foodprint" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
+              <a href="new_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
             </div>
 
             <div class="clearfix"></div>
             <?php
              
-                $sql="select path from userdata where userid='$userid'";
-                $ans=mysqli_query($conn,$sql); 
-                if ( mysqli_num_rows( $ans ) > 0 ){           
-                 while($row3 =mysqli_fetch_assoc($ans)) {
-                  $profilepic=$row3["path"];
-                 }}
-                 if($profilepic == ""){
-                    $profilepic='static/images/pro.jpg';
-                 }
-
+                 $profilepic='static/images/pro.jpg';
             ?>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
@@ -220,7 +205,7 @@
               </div>
               <div class="profile_info col-sm-8">
                 <span>Welcome,</span>
-                <h2><?php echo $_SESSION['username'] ?></h2>
+                <h2><?php echo $username ?></h2>
               </div>
               <div class="clearfix"></div>
               </div>
@@ -265,14 +250,16 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src=<?php echo $profilepic ?> alt=""><?php echo $_SESSION['username'] ?>
+                    <img src=<?php echo $profilepic ?> alt=""><?php echo $username ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="profile.php"> Profile</a></li>
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
-                </li>                
+                </li>
+
+                
               </ul>
             </nav>
           </div>
@@ -281,8 +268,8 @@
 
         <!-- page content -->
         <?php 
-          $days=1;    
-          $query="CREATE VIEW temp as SELECT count(land) as land FROM orderdata WHERE user_id = '$userid' GROUP BY DAY(dateins), HOUR(dateins) DIV 2 ORDER BY DATE(dateins) ASC , dateins DESC";
+        $days=1;    
+          $query="CREATE VIEW temp as SELECT count(land) as land FROM orderdata WHERE user_id = 1 GROUP BY DAY(dateins), HOUR(dateins) DIV 2 ORDER BY DATE(dateins) ASC , dateins DESC";
           $ress=mysqli_query($conn,$query);
           $query="SELECT COUNT(land) as count from temp";
           $ress=mysqli_query($conn,$query);
@@ -320,51 +307,51 @@
           <div class="row tile_count">
                    
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top" ><i class="fa fa-glass"></i> Total Water (L) <i style=" color: black;right: -17%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Water wasted till date due to wastage of food "></i></span>
+              <span class="count_top" ><i class="fa fa-glass"></i> Total Water (L) <i style=" color: black;right: -15%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Water wasted till date due to wastage of food "></i></span>
               <div class="count"><?php echo "".$userwater ?></div>
-              <span class="count_bottom"><i style="color:black;"><?php echo ceil($userwater/40)?></i> Buckets of water <i style=" color: black;right: -5%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Buckets of water wasted till date due to wastage of food. Assuming one bucket is 20 litres. "></i></span>
+              <span class="count_bottom"><i class="green"><?php echo ceil($userwater/40)?></i> Buckets of water <i style=" color: black;right: -5%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Buckets of water wasted till date due to wastage of food "></i></span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-fire"></i> Total Calories (cal) <i style=" color: black;right: -15%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calories (cal) wasted till date due to wastage of food "></i></span>
+              <span class="count_top"><i class="fa fa-fire"></i> Total Calories (cal) <i style=" color: black;right: -10%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calories (cal) wasted till date due to wastage of food "></i></span>
               <div class="count"><?php echo "".$usercalories ?></div>
-              <span class="count_bottom"><i style="color:black;"><?php echo ceil(($usercalories*365)/($days*1000))?></i> days a kid can be fed<i style=" color: black;
+              <span class="count_bottom"><i class="green"><?php echo ceil($usercalories/($days*2.73))?></i> days a kid can be fed<i style=" color: black;
     /*right: -5%;*/
-     padding: 1px 7px; 
+     padding: 1px 5px; 
     border-radius: 50%;
     position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="bottom" title="" 
-    data-original-title="Number of days a child can be fed if your average food wastage is extrapolated annually"></i></span>
+    data-original-title="Number of days a child can be fed if your average food wastage is extrapolated annulay"></i></span>
             </div>                    
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-cutlery"></i> Total Food Wasted (g)</span>
               <div class="count"><?php echo $foodwaste ?></div>
-              <span class="count_bottom"><i style="color:black;"><?php  echo ceil($foodwaste*0.365/$days)?> </i>Kg wasted in a year<i style=" color: black;
+              <span class="count_bottom"><i class="green"><?php  echo ceil($foodwaste*0.365/$days)?> </i>Kg wasted in a year<i style=" color: black;
     /*right: -5%;*/
      padding: 1px 5px; 
     border-radius: 50%;
     position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="bottom" title="" 
-    data-original-title="Yearly waste generated if you continue the current wastage trend."></i></span>
+    data-original-title="Yearly waste generated if you countinue the Current wastage trend."></i></span>
             </div>
             
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-cloud"></i> Total CO₂ Emmited (g)<i style=" color: black;right: 0%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Total CO₂ (g) emitted till date due to wastage of food "></i></span>
+              <span class="count_top"><i class="fa fa-cloud"></i> Total CO₂ (g)<i style=" color: black;right: -20%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Total CO₂ (g) emitted till date due to wastage of food "></i></span>
               <div class="count green"><?php echo "".$userland ?></div>
-              <span class="count_bottom"><i style="color:black;"><?php  echo ceil($userland*0.0521/$days)?></i> Saplings to be planted<i style=" color: black;
-    right: -5%;
+              <span class="count_bottom"><i class="green"><?php  echo ceil($userland*0.0521/$days)?></i> Saplings to be planted<i style=" color: black;
+    /*right: -5%;*/
      padding: 1px 5px; 
     border-radius: 50%;
     position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="bottom" title="" 
-    data-original-title="Number of plants that must be planted annulay to absorb the CO₂ emitted if your food wastage is extrapolated annually."></i></span>
+    data-original-title="Number of plants that must be planted annulay to absorb the CO₂ emitted if your food wastage is extrapolated annualy."></i></span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-line-chart"></i> Current Rank <i style=" color: black;right: -20%;padding: 1px 5px;border-radius: 50%;position: relative;" class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" 
-                data-original-title="Your Current rank out of all the people registered on our website."></i></span>
+                data-original-title="Your Current rank out of all the people registered on our website based."></i></span>
               <div class="count green"><?php echo "".$userrank ?></div>
-              <span class="count_bottom">Out of <i style="color:black;"><?php echo $count?> </i> Users </span>
+              <span class="count_bottom">Out of <i class="green"><?php echo $count?> </i> Users </span>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-star"></i> Today's Rating</span>
               <div class="count"><?php  echo round( $todaywater, 1, PHP_ROUND_HALF_UP)?> </div>
-              <span class="count_bottom">Out of <i style="color:black;">5 </i></span>
+              <span class="count_bottom">Out of <i class="green">5 </i></span>
             </div>
           </div>
           <!-- /top tiles -->
@@ -376,7 +363,7 @@
                     <h2>Wastage Trend</h2>    
                     <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
                      <li>.</li><li></li>
-                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="It shows individual impact of all food orders on the environment graphically."></i></a>
+                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="It shows individual impact of order on environment."></i></a>
                       </li>                      
                     </ul>                
                     <div class="clearfix"></div>
@@ -391,7 +378,7 @@
                     <h2>Add Items</h2>
                     <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
                      <li>.</li><li></li>
-                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add your order details along with the percentage of particular dish you wasted.Enter 0 if you didn't waste any."></i></a>
+                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add your order details along with the percent of parcticular dish you wasted.Enter 0 if you didn't waste any."></i></a>
                       </li>                      
                     </ul>
                     <div class="clearfix"></div>
@@ -405,7 +392,6 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Restaurant</label>
                         <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">                          
                           <select name="resid" id="resid" class="form-control" >
-                            <option value="0">Select Restaurant</option>
                             <option value="1">Hide Out Cafe</option>
                             <option value="2">Shiv Sagar</option>
                             <option value="3">Oriental Spice</option>
@@ -426,7 +412,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Percent</label>
                         <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">
-                          <input type="text" name="percent" id="percent" class="form-control" placeholder="">
+                          <input type="text" name="percent" id="percent" class="form-control" placeholder="Default Input">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -693,8 +679,7 @@
                                       echo "<tr><td>" . $row["res_name"]. "</td><td>" . $row["foodname"]. "</td><td>" . $row["water"]. "</td><td>" . $row["calories"].  "</td><td>" . $row["land"]. "</td><td>" . $row["dateins"]."</td></tr>";
                                     }        
                               }else
-                              { 
-                                // echo " First Time user ";     
+                              { echo " First Time user ";     
                               }
                               ?>                          
                       </tbody>
@@ -758,10 +743,10 @@
               echo $beverages.",".$chinese_veg.",".$chinese_nveg.",".$breads.",".$indian_veg.",".$indian_nveg.",".$snacks_veg.",".$snacks_nveg;
               ?>],
             backgroundColor: [
-              "#3498db",
-              "#1abb9c",
-              "#808080",
-              "#9b59b6",
+              "blue",
+              "green",
+              "grey",
+              "purple",
               "#9cc2cb",
               "#E74C3C",
               "#e8e884",
@@ -796,7 +781,7 @@
        $('#input-4').rating({displayOnly: true, step: 0.5});
 
 
-      var diction = { 0:["Select Dish"],
+      var diction = {
                       1: ["Black Coffee","Black Tea","Hot Coffee ","Hot Coffee with cream","Cold coffee","Lemon Tea","Milkshake with chocolate","Dryfruit Milkshake","Lemonade","Soft Drink","Float","Virgin Mojito","Apple Juice","Pineapple Juice","Orange juice","Grapefruit juice","Veg Noodles","Paneer Noodles","Chilly paneer","Veg Manchurian","Paneer Manchurian","Chicken Noodles","Chicken manchurian","Masala Burger","Cheese Burger","Paneer Burger","Chicken Burger","Cheese chicken","Paneer Pizza","Margherita Pizza","Veg cheeze Pizza","Chicken Pizza","Chicken Cheese Pizza","Masala Fries","Cheese Fries ","Chocolate Sandwich","Veg  Sandwich","Cheese Garlic Sandwich","Cheese Corn Sandwich","cheese toast","Chicken Sanwich","Chicken Mayo","Masala Pasta ","Cheese Pasta","Panner Pasta","Masala Maggie","Cheese Maggie","Panner Maggie","Chicken Pasta","Chicken Maggie"],
                       2: ["Milk","Black Coffee","Black Tea","Hot Coffee ","Lemon Tea","Soft Drink","Aloo paratha","Onion Paratha","Gobhi Paratha","Mix Paratha","Paneer Paratha","naan","Roti","Butter naan","Butter Roti","Lacha Paratha","chola bathura","Shahi Paneer ","Rice","Jeera rice","Veg Biryani","Paneer butter masala","paneer tikka masala","Mix veg","Dal fry","Dal tadka","Dal Makhani"],
                       3: ["Black Coffee","Black Tea","Hot Coffee ","Hot Coffee with cream","Cold coffee","Cold coffee with ice cream","Lemon Tea","Milkshake without Chocolate","Milkshake with chocolate","Dryfruit Milkshake","Veg Noodles","Paneer Noodles","Chilly potato","Chilly paneer","Veg hot n sour soups","Carrot soup","Veg manchow soups","Cream of tomato soup","Sweet corn soup","Chicken Noodles","Chilly chicken","Chicken manchurian","Chicken momos","Chicken hot n sour soup","Chicken manchow soup","Vegetable choupsey","Spring roll","Veg momos ","Paneer momos"],

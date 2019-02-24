@@ -3,7 +3,8 @@
 
 <head>
 
-	<?php require_once('config.php') ?>
+    <?php require_once('config.php') 
+    ?>
  
 
 
@@ -212,7 +213,7 @@
                     * --------------------------------------- */
         
         #section0 {
-            background-image: url('static/images/page1.png');
+            background-image: url('static/images/page1.jpg');
         }
         
         #section0 h1 {
@@ -645,7 +646,7 @@
         }
         
         .service_item:hover {
-            background: #fcdc00
+            background: #ffeb62;
         }
         
         .service_item:hover p {
@@ -832,15 +833,15 @@
         }
         
         .toggle-menu i:nth-child(1) {
-            top: 22%;
+            top: 14%;
         }
         
         .toggle-menu i:nth-child(2) {
-            top: 39%;
+            top: 31%;
         }
         
         .toggle-menu i:nth-child(3) {
-            top: 57%;
+            top: 49%;
         }
         
         .open-menu i:nth-child(1) {
@@ -1331,37 +1332,17 @@ textarea.form-control {
  
     <header>
         <div class="header-top clearfix">
-            <h5 class="l-left"><a href="#firstSection">Eat Responsibly</a></h5>
-            <!-- <img class="l-left" src="https://www.ecellvnit.org/img/logo-ecell.png" alt="Ecell Logo" width="135px"> -->
-            <a class="l-right toggle-menu" href="#">
+            <h5 class="l-left"><a href="#firstSection" style="font-weight: 600;color: white;"><i class="fa fa-paw"></i>Food Print</a></h5>        
+            <h5 class="l-right"><a href="demo.php" style="font-weight: 400;padding-right: 7px;color: white;">Demo</a>  |  <a href="login.php" style="font-weight: 400;padding-right: 15px;padding-left: 5px;color: white;">Log In</a></h5>
+
+            <!-- <h5 class="l-right"><a href="demo.php" style="padding-right: 10px;color: white;">Demo</a><a href="login.php" style="color: white;">Log In</a><a class="l-right toggle-menu" href="#">
                 <i></i>
                 <i></i>
                 <i></i>
-            </a>
+            </a></h5> -->
+
         </div>
 
-        <nav class="hide">
-            <ul id="menu">
-                <li data-menuanchor="firstSection">
-                    <a href="#Home" title="Home">Home</a>
-                </li>
-                <li data-menuanchor="secondSection">
-                    <a href="#Facts" title="Facts">Facts</a>
-                </li>
-                <li data-menuanchor="thirdSection">
-                    <a href="#What_we_do" title="What we do">What we do</a>
-                </li>
-                <li data-menuanchor="fourthSection">
-                    <a href="#Tag_Line" title="Tag Line">Tag Line</a>
-                </li>
-                <li data-menuanchor="fifthSection">
-                    <a href="#Impact" title="Impact">Impact</a>
-                </li>  
-                <li data-menuanchor="fifthSection">
-                    <a href="#Contact_Us" title="Contact Us">Contact Us</a>
-                </li>                
-            </ul>
-        </nav>
     </header>
     <a href="#Home" id="scroll" style="display: none;"><span></span></a>
     <div id="fullpage">
@@ -1370,30 +1351,14 @@ textarea.form-control {
         <div class=" bounce">
             <img class="downArrow" width="40" height="40" alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yOTMuNzUxLDQ1NS44NjhjLTIwLjE4MSwyMC4xNzktNTMuMTY1LDE5LjkxMy03My42NzMtMC41OTVsMCwwYy0yMC41MDgtMjAuNTA4LTIwLjc3My01My40OTMtMC41OTQtNzMuNjcyICBsMTg5Ljk5OS0xOTBjMjAuMTc4LTIwLjE3OCw1My4xNjQtMTkuOTEzLDczLjY3MiwwLjU5NWwwLDBjMjAuNTA4LDIwLjUwOSwyMC43NzIsNTMuNDkyLDAuNTk1LDczLjY3MUwyOTMuNzUxLDQ1NS44Njh6Ii8+DQo8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjIwLjI0OSw0NTUuODY4YzIwLjE4LDIwLjE3OSw1My4xNjQsMTkuOTEzLDczLjY3Mi0wLjU5NWwwLDBjMjAuNTA5LTIwLjUwOCwyMC43NzQtNTMuNDkzLDAuNTk2LTczLjY3MiAgbC0xOTAtMTkwYy0yMC4xNzgtMjAuMTc4LTUzLjE2NC0xOS45MTMtNzMuNjcxLDAuNTk1bDAsMGMtMjAuNTA4LDIwLjUwOS0yMC43NzIsNTMuNDkyLTAuNTk1LDczLjY3MUwyMjAuMjQ5LDQ1NS44Njh6Ii8+DQo8L3N2Zz4=" />
         </div>
+<div class="section pattern" id="section4">
 
-        <div class="section pattern" id="section5">
-
-            <!-- Start WOWSlider.com BODY section  -->
-            <div id="wowslider-container0">
-                <div class="ws_images">
-                    <ul>
-                        <li><img src="static/images/fact1.png" alt="" title="" id="wows0_0" /></li>
-                        <li><img src="static/images/fact2.png" alt="" title="" id="wows0_1" /></li>
-                        <li>
-                            <img src="static/images/fact_3.png" alt="slideshow html code" title="" id="wows0_2" />
-                        </li>
-                        <li><img src="static/images/fact4.png" alt="" title="" id="wows0_3" /></li>
-                    </ul>
-                </div>
+            <div class="hvrbox ">
+                <img src="static\images\trashbkg.png" class="hvrbox-layer_bottom">
                 
-                <div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">html5 slideshow</a> by WOWSlider.com v8.8</div>
-                <div class="ws_shadow"></div>
             </div>
-            <script type="text/javascript" src="static/engine0/wowslider.js"></script>
-            <script type="text/javascript" src="static/engine0/script.js"></script>
-            <!-- End WOWSlider.com BODY section -->
-
         </div>
+        
 
         <div class="section" id="section3">
             <section class=" text-white text-center" id="services">
@@ -1443,16 +1408,28 @@ textarea.form-control {
                 </div>
             </section>
         </div>
-        <div class="section pattern" id="section4">
+        <div class="section pattern" id="section5">
 
-            <div class="hvrbox ">
-                <img src="static\images\trashbkg.png" class="hvrbox-layer_bottom">
-                <div class="hvrbox-layer_top">
-                    <div class="hvrbox-text "> it's about keeping the
-                        <b><i>trash</i></b> can empty.</div>
-                    <div class="hvrbox-text1 ">- foodprint</div>
+            <!-- Start WOWSlider.com BODY section  -->
+            <div id="wowslider-container0">
+                <div class="ws_images">
+                    <ul>
+                        <li><img src="static/images/fact1.png" alt="" title="" id="wows0_0" /></li>
+                        <li><img src="static/images/fact2.png" alt="" title="" id="wows0_1" /></li>
+                        <li>
+                            <img src="static/images/fact_3.png" alt="slideshow html code" title="" id="wows0_2" />
+                        </li>
+                        <li><img src="static/images/fact4.png" alt="" title="" id="wows0_3" /></li>
+                    </ul>
                 </div>
+                
+                <div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net"></a></div>
+                <div class="ws_shadow"></div>
             </div>
+            <script type="text/javascript" src="static/engine0/wowslider.js"></script>
+            <script type="text/javascript" src="static/engine0/script.js"></script>
+            <!-- End WOWSlider.com BODY section -->
+
         </div>
 
         <div class="section " id="section6">
@@ -1465,34 +1442,34 @@ textarea.form-control {
                     <div class="row service_inner">
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Revised Menu Cards</h4></a>                                
-                                <p>Restaurant menu card which shows water footprint of each dish to make people aware of their indirect water consumption.
-
+                                <a href="https://drive.google.com/file/d/1maTNbeIJx5l7JplzilwsKIciHgvn7g4e/view" target="_blank"><h4>Revised Menu Cards</h4></a>                                
+                                <p ><a href="https://drive.google.com/file/d/1maTNbeIJx5l7JplzilwsKIciHgvn7g4e/view" target="_blank" style="color: #0e1619f2!important">Restaurant menu card which shows water footprint of each dish to make people aware of their indirect water consumption.
+                                    </a>
                                     <br>
                                 </p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Quantitative Measurement</h4></a>
+                                <a href="login.php"><h4>Quantitative Measurement</h4></a>
                                 <p>Data of the food, water, land and calories wasted by a diner is shown on the bill of a particular order as well as the diner's personal login page.</p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Real time data analysis</h4></a>
-                                <p>Use your daily food wastage data to calculate the environmental impact and represent the trend graphically along with your rank w.r.t. other users. </p>
+                                <a href="login.php"><h4>Real time data analysis</h4></a>
+                                <p>Using your daily food wastage data we calculate the environmental impact and represent the trend graphically along with your rank w.r.t. other users. </p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Students</h4></a>
+                                <a href="login.php"><h4>Students</h4></a>
                                 <p>Collaborate with schools & colleges locally and conduct interactive seminars , workshops about impact of food wastage on environment.</p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Learning Resources</h4></a>
+                                <a href="login.php"><h4>Learning Resources</h4></a>
                                 <p>Some resources at your disposal for a better understanding.
                                     <br>
                                     <br>
@@ -1502,8 +1479,8 @@ textarea.form-control {
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="service_item">
-                                <a href="#"><h4>Start impacting</h4></a>
-                                <p>Want to be the change you want to see in others? Volunteer with us on our Global Mission to zero out the the food in the trash by 2025. #zerooutby2025</p>
+                                <a href="https://goo.gl/forms/0v6HtpPL2Htr1ibn1" target="_blank" style="color: #0e1619f2!important"><h4>Start impacting</h4></a>
+                                <p><a href="https://goo.gl/forms/0v6HtpPL2Htr1ibn1" target="_blank" style="color: #0e1619f2!important">Want to be the change you want to see in others? Volunteer with us on our Global Mission to zero out the the food in the trash by 2025. <strong>#zerooutby2025</strong></a></p>
                             </div>
                         </div>
 
@@ -1624,10 +1601,10 @@ $('#return-to-top').click(function() {      // When arrow is clicked
                 navigationPosition: 'right',
                 css3: false,
                 navigation: true,
-                anchors: ['Home', 'Facts', 'What_we_do', 'Tag_Line', 'Impact','Contact_Us'],
+                anchors: ['Home', 'Tag_Line', 'What_we_do', 'Facts', 'Impact','Contact_Us'],
                 menu: '#menu',
                 afterLoad: function(anchorLink, index) {
-                    $header_top.css('background', 'rgba(0, 47, 77, .3)');
+                    $header_top.css('background', 'rgba(0, 47, 77, .5)');
                     $nav.css('background', 'rgba(0, 47, 77, .25)');
                     if (index == 5) {
                         $('#fp-nav').hide();

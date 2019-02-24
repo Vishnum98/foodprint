@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Food Print | Profile Photo</title>
+    <title>Resources</title>
 
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,70 +43,14 @@
       }
     </style>
   </head>
- <?php
-            if(isset($_POST['submit']) && $_FILES['avatar']['tmp_name']!=""){
-             $conn = mysqli_connect("localhost", "root", "", "db");
-                if (!$conn) {
-                    die("Error connecting to database: " . mysqli_connect_error());
-                }
 
-                $fileName = $_FILES["avatar"]["name"];                    
-                  $fileSize = $_FILES["avatar"]["size"];
-                if($fileSize > 3048576) {
-                    // header("location: ../message.php?msg=ERROR: Your image file was larger than 1mb");
-                  echo '<script>alert("File is larger than 3mb");</script>';
-                    // exit(); 
-                  } else if (!preg_match("/\.(gif|jpg|png)$/i", $fileName) ) {
-                    // header("location: ../message.php?msg=ERROR: Your image file was not jpg, gif or png type");
-                    echo '<script>alert("File is not a image");</script>';
-                    // exit();
-                  } 
-                  else{
-                if(!is_dir('profile/'.$userid)){
-                  //Directory does not exist, so lets create it.
-                  mkdir('profile/'.$userid, 0755);
-                }
-                $maxDimW = 200;
-                $maxDimH = 200;
-                list($width, $height, $type, $attr) = getimagesize( $_FILES['avatar']['tmp_name'] );
-                if ( $width > $maxDimW || $height > $maxDimH ) {
-                    $target_filename = $_FILES['avatar']['tmp_name'];
-                    $fn = $_FILES['avatar']['tmp_name'];
-                    $size = getimagesize( $fn );
-                    $ratio = $size[0]/$size[1]; // width/height
-                    if( $ratio > 1) {
-                        $width = $maxDimW;
-                        $height = $maxDimH;
-                    } else {
-                        $width = $maxDimW;
-                        $height = $maxDimH;
-                    }
-                    $src = imagecreatefromstring(file_get_contents($fn));
-                    $dst = imagecreatetruecolor( $width, $height );
-                    imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1] );
-
-                    imagejpeg($dst, $target_filename); // adjust format as needed
-
-
-                }
-                $kaboom = explode(".", $_FILES["avatar"]["name"]);
-              $fileExt = end($kaboom);
-              $path='profile/'.$userid.'/dp.'.$fileExt;
-              $path=mysqli_real_escape_string($conn,$path);
-              if(move_uploaded_file($_FILES['avatar']['tmp_name'], $path)){
-                $sql="update userdata set path='$path' where userid='$userid'";
-                // echo $sql;
-                 $result = mysqli_query ( $conn , $sql );               
-              }}
-            }
-            ?>
-  <body class="nav-md">    
+  <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="new_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
+              <a href="newres_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -146,9 +90,9 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
-                  <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>Support</a></li>                  
+                  <li><a href="newres_home.php"><i class="fa fa-home"></i>Home </a></li>
+                  <li><a href="resourcesr.php" ><i class="fa fa-laptop"></i>Resources</a></li>
+                  <li><a href="howr.php"><i class="fa fa-laptop"></i>Support</a></li>                  
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
@@ -184,7 +128,9 @@
                     <li><a href="profile.php"> Profile</a></li>
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
-                </li>                
+                </li>
+
+                
               </ul>
             </nav>
           </div>
@@ -198,25 +144,101 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Change Profile Photo</h2>
-                  
+                    <h2>Resources</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                     <form method="post" enctype="multipart/form-data">
-                       <input type="file" class="btn btn-primary" name="avatar" > 
-                       <input type="submit" name="submit"  class="btn btn-success" value="Submit" ">
-                     </form>
+
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/AY-7RAcoXYs?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/TDK83M8MgUQ?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/U8G2FCElM0w?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/Z99Za8SsLlI?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/ivbNrgLna_w?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/Q46G6qRvvdI?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      
                   </div>
+                  
+
                 </div>
               </div>
             </div>
-           
+            <div class="clea"></div>
+           <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Important Documents (Click to Download)</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div>
+                    <h2>
+                    <ul>
+
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1b5Nk_2_soqtDgqSzijWfxzw4Sl6RbyXO" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Water footprint of crops</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=16nj7xBF_cdutwPFSQd2Mf2Nh967moolf" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Low Carbon lifestyle</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1PsF0MZeyXQM9p5Wu1-vtExvFZGptRgTz" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">How to calculate water footprint</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1NGQL0mqqQHrSR5-Q8SuBZAsfaieZ0J_E" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Water footprint of common food items</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=13trmA_k23SkXhN-q-rZ17eNTe1jDN2fs" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Presentation for school students</a></li>
+
+                    </ul>
+                    </h2>
+                    </div>
+                     
+                      
+                  </div>
+                  
+
+                </div>
+              </div>
+            </div>
      
 
 
         <!-- /page content -->        
-         <div class="clearfix"></div>
       </div>
     </div>
 

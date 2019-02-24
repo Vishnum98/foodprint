@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Food Print | How to use</title>
+    <title>Food Print | Support</title>
 
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -92,7 +92,7 @@
                 <ul class="nav side-menu">
                   <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
                   <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                  
+                  <li><a href="how.php"><i class="fa fa-laptop"></i>Support</a></li>                  
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
@@ -144,7 +144,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>How to Use</h2>
+                    <h2>Support</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -163,15 +163,48 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      Add content to the page ...
+                      <!-- form begins here -->
+                      <form method="post" class="form-horizontal form-label-left">
+
+                      
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Question</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">
+                          <input type="text" name="ques" id="ques" class="form-control" placeholder="Enter your Question.">
+                        </div>
+                      </div>    
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-left: 10px!important">
+                          <!-- <input type="text" name="percent" id="percent" class="form-control" placeholder="Default Input"> -->
+                          <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter Description for your Question." ></textarea>
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                          
+                          <button type="reset" class="btn btn-primary">Reset</button>
+                          <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+<?php
+    if (isset($_POST['submit']))
+        {     
+        $desc=$_POST['desc'];        
+        $ques=$_POST['ques'];            
+        $fid="INSERT INTO `questions` (`userid`,`ques`, `description`) VALUES ('$userid', '$ques', '$desc');";              
+        $res=mysqli_query ( $conn , $fid );       
+          echo "<h2>We will get back to you on your registered mail id shortly</h2>";
+               
+        }     
+    ?>
                   </div>
                 </div>
               </div>
             </div>
-
-     
-
-
         <!-- /page content -->        
       </div>
     </div>

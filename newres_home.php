@@ -119,8 +119,8 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="newres_home.php"><i class="fa fa-home"></i>Home </a></li>
-                  <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                 
+                  <li><a href="resourcesr.php" ><i class="fa fa-laptop"></i>Resources</a></li>
+                  <li><a href="howr.php"><i class="fa fa-laptop"></i>Support</a></li>                  
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
@@ -239,48 +239,18 @@
         <!-- page content -->
 
        <div class="right_col" role="main" style="min-height: 1683px;">
-          <!-- top tiles -->
-          <div class="row tile_count">
-                   
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-glass"></i> Total Water</span>
-              <div class="count"><?php echo "".$userwater ?></div>
-              <span class="count_bottom"><i class="green"><?php echo ceil($userwater/40)?></i> Buckets of water</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Total Calories</span>
-              <div class="count"><?php echo "".$usercalories ?></div>
-              <span class="count_bottom"><i class="green"><?php echo ceil($usercalories/1000)?></i> Kids could be fed</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-building"></i> Total CO₂</span>
-              <div class="count green"><?php echo "".$userland ?></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-line-chart"></i> Current Rank</span>
-              <div class="count green"><?php echo "".$userrank ?></div>
-              <span class="count_bottom">Out of <i class="green"><?php echo $count?> </i> Restaurants </span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-cutlery"></i> Total Food Wasted</span>
-              <div class="count"><?php echo $foodwaste ?></div>
-              <span class="count_bottom"><i class="green"><?php  echo $foodwaste*0.365?> </i>Kg wasted in a year</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-cloud"></i> Total O₂</span>
-              <div class="count">IDK</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            
-          </div>
-          <!-- /top tiles -->
+          
 
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
                 <div class="x_title">
-                    <h2>Daily Wastage</h2>                    
+                    <h2>Wastage Trend</h2>    
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
+                     <li>.</li><li></li>
+                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="It shows individual impact of order on environment."></i></a>
+                      </li>                      
+                    </ul>  
                     <div class="clearfix"></div>
                   </div>
 
@@ -291,7 +261,11 @@
                   <div class="x_title">
                     <br>
                     <h2>Add Items</h2>
-                    
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
+                     <li>.</li><li></li>
+                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add your order details along with the percent of parcticular dish you wasted.Enter 0 if you didn't waste any."></i></a>
+                      </li>                      
+                    </ul>
                     <div class="clearfix"></div>
                   </div>
               <div class="x_content col-md-12 col-sm-12 col-xs-12" style="padding-left: 1px!important">
@@ -326,6 +300,7 @@
                           
                           <button type="reset" class="btn btn-primary">Reset</button>
                           <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                          <button type="submit" name="mail" class="btn btn-success">Mail</button>
                         </div>
                       </div>
 
@@ -342,18 +317,80 @@
 
           </div>
           <br>
-         
+         <?php
+    if (isset($_POST['submit']))
+    {     
+
+      $number=$_POST['number'];
+      // $foodid=$_POST['foodid'];
+      $percent=$_POST['percent'];
+      $foodname=$_POST['foodname'];
+      
+      $main="select userid from userdata where mobile='$number'";
+      $mainr=mysqli_query($conn,$main);
+      // echo "".$main;
+      if ( mysqli_num_rows( $mainr ) > 0 ){
+        $datar=mysqli_fetch_assoc($mainr);
+        $userid=$datar["userid"];
+      }else{
+        // change this number very important
+        $userid=8;
+      }
+        $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
+        $res=mysqli_query ( $conn , $fid );
+        //check correct restaurant and food id
+        if ( mysqli_num_rows( $res ) > 0 ){
+
+            $data1=mysqli_fetch_assoc($res);
+            $foodid=$data1['food_id'];
+            $sql="select water,calories,land,cusine,weight from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
+            $result = mysqli_query ( $conn , $sql );  
+             
+            if ( mysqli_num_rows( $result ) > 0 ){
+             
+              $data=mysqli_fetch_assoc($result);    
+                         
+                //data has water,calories,land
+                $water=$percent*$data["water"]/100;
+                $calories=$percent*$data["calories"]/100;
+                $land=$percent*$data["land"]/100;
+                $cusine=$data["cusine"];
+                $weight=$percent*$data["weight"]/100;
+                // echo $water +"   calories= "+ $calories +"  land= "+$land;
+                $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water',weight=weight+'$weight' WHERE userid= '$userid'";   
+                $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
+                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
+                 // echo("console.log('PHP: ".json_encode($sql1, JSON_NUMERIC_CHECK)."');");
+                $result1 = mysqli_query ( $conn , $sql1 );   
+                $result1 = mysqli_query ( $conn , $sql3 );   
+                    $result2 = mysqli_query ( $conn , $sql4 );   
+                // header('Location: home.php');          
+                       
+            }else{ 
+                    echo " Incorrect data ";
+             
+            }
+        }else{
+            echo "Incorrect Restaurant and food match";
+        }
+      
+   
+     
+    }
+     
+    ?>
           <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Order History </h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   <ul class="nav navbar-right panel_toolbox" style="min-width: 0px;">
+                     <li>.</li><li></li>
+                      <li><a class=""><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Track record of all the orders and its environmental impact."></i></a>
                       </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
+                      
                     </ul>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -367,7 +404,7 @@
                           <th>Food Name</th>
                           <th>Water</th>
                           <th>Calories</th>
-                          <th>CO²</th>
+                          <th>CO₂</th>
                           <th>Date</th>
                         </tr>
                       </thead>
@@ -521,67 +558,6 @@ $('#foodname').html(
             
           
     </script>
-    <?php
-    if (isset($_POST['submit']))
-    {     
-
-      $number=$_POST['number'];
-      // $foodid=$_POST['foodid'];
-      $percent=$_POST['percent'];
-      $foodname=$_POST['foodname'];
-      
-      $main="select userid from userdata where mobile='$number'";
-      $mainr=mysqli_query($conn,$main);
-      // echo "".$main;
-      if ( mysqli_num_rows( $mainr ) > 0 ){
-        $datar=mysqli_fetch_assoc($mainr);
-        $userid=$datar["userid"];
-      }else{
-        // change this number very important
-        $userid=8;
-      }
-        $fid="select food_id from foodmaster where foodname='$foodname' and restaurant_id='$resid' ";    
-        $res=mysqli_query ( $conn , $fid );
-        //check correct restaurant and food id
-        if ( mysqli_num_rows( $res ) > 0 ){
-
-            $data1=mysqli_fetch_assoc($res);
-            $foodid=$data1['food_id'];
-            $sql="select water,calories,land,cusine,weight from foodmaster where food_id='$foodid' and restaurant_id='$resid' ";    
-            $result = mysqli_query ( $conn , $sql );  
-             
-            if ( mysqli_num_rows( $result ) > 0 ){
-             
-              $data=mysqli_fetch_assoc($result);    
-                         
-                //data has water,calories,land
-                $water=$percent*$data["water"]/100;
-                $calories=$percent*$data["calories"]/100;
-                $land=$percent*$data["land"]/100;
-                $cusine=$data["cusine"];
-                $weight=$percent*$data["weight"]/100;
-                // echo $water +"   calories= "+ $calories +"  land= "+$land;
-                $sql1="update userdata set water= water + '$water',calories=calories+'$calories', land=land+'$land',$cusine=$cusine+'$water',weight=weight+'$weight' WHERE userid= '$userid'";   
-                $sql3="insert into `orderdata` (`orderid`, `user_id`, `restaurant_id`, `food_id`, `percent`, `water`, `calories`, `land`) VALUES (NULL, '$userid', '$resid', '$foodid', '$percent', '$water', '$calories', '$land')";
-                $sql4="update restaurant set water= water + '$water',calories=calories+'$calories', land=land+'$land' WHERE res_id= '$resid'";
-                 // echo("console.log('PHP: ".json_encode($sql1, JSON_NUMERIC_CHECK)."');");
-                $result1 = mysqli_query ( $conn , $sql1 );   
-                $result1 = mysqli_query ( $conn , $sql3 );   
-                    $result2 = mysqli_query ( $conn , $sql4 );   
-                // header('Location: home.php');          
-                       
-            }else{ 
-                    echo " Incorrect data ";
-             
-            }
-        }else{
-            echo "Incorrect Restaurant and food match";
-        }
-      
-   
-     
-    }
-     
-    ?>
+    
   </body>
 </html>

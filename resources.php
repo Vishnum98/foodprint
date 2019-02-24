@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Food Print | How to use</title>
+    <title>Resources</title>
 
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -92,7 +92,7 @@
                 <ul class="nav side-menu">
                   <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
                   <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
-                  <li><a href="how.php"><i class="fa fa-laptop"></i>How to use</a></li>                  
+                  <li><a href="how.php"><i class="fa fa-laptop"></i>Support</a></li>                  
                   <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
                 </ul>
               </div>          
@@ -145,30 +145,68 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Resources</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      Add content to the page ...
+
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/AY-7RAcoXYs?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/TDK83M8MgUQ?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/U8G2FCElM0w?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/Z99Za8SsLlI?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/ivbNrgLna_w?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      <div style="float:left;">
+                        <iframe frameborder="0" id="youtube" src="//www.youtube.com/embed/Q46G6qRvvdI?rel=0" title="YouTube video player" width="340" height="241" class="graphic"></iframe>
+                      </div>
+                      
                   </div>
+                  
+
                 </div>
               </div>
             </div>
+            <div class="clea"></div>
+           <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Important Documents (Click to Download)</h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div>
+                    <h2>
+                    <ul>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/file/d/14gqrVFewNT5G3AkUjNU4UZCaCH0zdUfJ/view?usp=sharing" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Assignment for School Students</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1b5Nk_2_soqtDgqSzijWfxzw4Sl6RbyXO" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Water footprint of crops</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=16nj7xBF_cdutwPFSQd2Mf2Nh967moolf" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Low Carbon lifestyle</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1PsF0MZeyXQM9p5Wu1-vtExvFZGptRgTz" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">How to calculate water footprint</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=1NGQL0mqqQHrSR5-Q8SuBZAsfaieZ0J_E" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Water footprint of common food items</a></li>
+                      <li style=" padding-top: 7px;"><a href="https://drive.google.com/open?id=13trmA_k23SkXhN-q-rZ17eNTe1jDN2fs" target="_blank" style=" text-decoration: underline;color: cornflowerblue;">Presentation for school students</a></li>
 
+                    </ul>
+                    </h2>
+                    </div>
+                     
+                      
+                  </div>
+                  
+
+                </div>
+              </div>
+            </div>
      
 
 

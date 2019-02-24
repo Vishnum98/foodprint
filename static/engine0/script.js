@@ -18,4 +18,4 @@ jQuery.extend(jQuery.easing,{easeInOutQuart:function(e,f,a,h,g){if((f/=g/2)<1){r
 // Obfuscated by Javascript Obfuscator
 // http://javascript-source.com
 //***********************************************
-jQuery("#wowslider-container0").wowSlider({effect:"carousel",prev:"",next:"",duration:22*100,delay:20*100,width:1900,height:880,autoPlay:true,autoPlayVideo:false,playPause:true,stopOnHover:false,loop:false,bullets:0,caption:true,captionEffect:"parallax",controls:true,controlsThumb:["data0/images/fact1.png", "data0/images/fact2.png", "data0/images/fact_3.png", "data0/images/fact4.png"],responsive:1,fullScreen:false,gestures:2,onBeforeStep:0,images:0});
+jQuery("#wowslider-container0").wowSlider({effect:"carousel",prev:"",next:"",duration:22*100,delay:21*100,width:1900,height:880,autoPlay:true,autoPlayVideo:false,playPause:true,stopOnHover:false,loop:false,bullets:0,caption:true,captionEffect:"parallax",controls:true,controlsThumb:["data0/images/fact1.png", "data0/images/fact2.png", "data0/images/fact_3.png", "data0/images/fact4.png"],responsive:1,fullScreen:false,gestures:2,onBeforeStep:0,images:0});
