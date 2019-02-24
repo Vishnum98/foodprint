@@ -43,7 +43,7 @@
                   <br />
 
                   <div>
-                    <a href="/foodprint"><h1 ><i class="fa fa-paw"></i> Food Print</h1></a>
+                    <a href="/"><h1 ><i class="fa fa-paw"></i> Food Print</h1></a>
                     <p>©2019 Food Print is a Hackathon Project</p>
                   </div>
                 </div>
@@ -83,7 +83,7 @@
                   <br />
 
                   <div>
-                    <a href="/foodprint"><h1 ><i class="fa fa-paw"></i> Food Print</h1></a>
+                    <a href="/"><h1 ><i class="fa fa-paw"></i> Food Print</h1></a>
                     <p>©2019 Food Print is a Hackathon Project</p>
                   </div>
                 </div>
