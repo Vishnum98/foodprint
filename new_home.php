@@ -291,6 +291,9 @@
                echo " Counting days error "; 
                $days=1;                   
           }
+          if($days<1){
+            $days=1;
+          }
           $ress=mysqli_query($conn,"drop view temp");
         ?>
         <?php 
