@@ -133,7 +133,7 @@ $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodpr
             session_start();
 
             // connect to database
-            $conn = mysqli_connect("localhost", "root", "", "db");
+            $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
 
             if (!$conn) {
                 die("Error connecting to database: " . mysqli_connect_error());
@@ -164,7 +164,7 @@ $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodpr
     }else if(isset($_POST['register1'])){
       
           
-            $conn = mysqli_connect("localhost", "root", "", "db");
+            $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
 
             if (!$conn) {
                 die("Error connecting to database: " . mysqli_connect_error());
