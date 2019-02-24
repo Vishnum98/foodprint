@@ -7,7 +7,7 @@
         header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
     }  
 
-    $conn = mysqli_connect("localhost", "root", "", "db");
+    $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
           if (!$conn) {
               die("Error connecting to database: " . mysqli_connect_error());
           }
@@ -91,9 +91,9 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="newres_home.php"><i class="fa fa-home"></i>Home </a></li>
-                  <li><a href="resourcesr.php" ><i class="fa fa-laptop"></i>Resources</a></li>
+                  <li><a href="resourcesr.php" ><i class="fa fa-book"></i>Resources</a></li>
                   <li><a href="howr.php"><i class="fa fa-laptop"></i>Support</a></li>                  
-                  <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
+                  <li><a href="logout.php"><i class="fa fa-power-off"></i>Logout</a></li>                 
                 </ul>
               </div>          
             </div>

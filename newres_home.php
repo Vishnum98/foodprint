@@ -7,7 +7,7 @@
         header("Location: login.php");//redirect to login page to secure the welcome page without login access.  
     }  
 
-    $conn = mysqli_connect("localhost", "root", "", "db");
+    $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
           if (!$conn) {
               die("Error connecting to database: " . mysqli_connect_error());
           }
@@ -46,11 +46,7 @@
 
   <body class="nav-md">
     <?php
-                $conn = mysqli_connect("localhost", "root", "", "db");
-                if (!$conn) {
-                    die("Error connecting to database: " . mysqli_connect_error());
-                }
-                // $userid=1; 
+                
                 $sq="select * from restaurant where res_id='$resid'";
                 $ans=mysqli_query($conn,$sq); 
                 if ( mysqli_num_rows( $ans ) > 0 ){           
@@ -119,26 +115,18 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="newres_home.php"><i class="fa fa-home"></i>Home </a></li>
-                  <li><a href="resourcesr.php" ><i class="fa fa-laptop"></i>Resources</a></li>
+                  <li><a href="resourcesr.php" ><i class="fa fa-book"></i>Resources</a></li>
                   <li><a href="howr.php"><i class="fa fa-laptop"></i>Support</a></li>                  
-                  <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
+                  <li><a href="logout.php"><i class="fa fa-power-off"></i>Logout</a></li>                 
                 </ul>
               </div>          
             </div>
             <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
+             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
+             
+              <a data-toggle="tooltip" data-placement="top" title="Logout" style="width: 100%" href="logout.php">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>

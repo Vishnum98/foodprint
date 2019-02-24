@@ -1,7 +1,7 @@
 <?php  
   
 
-    $conn = mysqli_connect("localhost", "root", "", "db");
+    $conn = mysqli_connect("localhost:3306", "vishnu", "vishnufoodprint123", "foodprint");
           if (!$conn) {
               die("Error connecting to database: " . mysqli_connect_error());
           }
@@ -102,11 +102,7 @@
      
     ?>
     <?php
-                $conn = mysqli_connect("localhost", "root", "", "db");
-                if (!$conn) {
-                    die("Error connecting to database: " . mysqli_connect_error());
-                }
-                // $userid=1; 
+                
                 $sq="select * from userdata where userid='$userid'";
                 $ans=mysqli_query($conn,$sq); 
                  $beverages=0;
@@ -188,7 +184,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="new_home.php" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
+              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Food Print</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -220,9 +216,9 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="new_home.php"><i class="fa fa-home"></i>Home </a></li>
-                  <li><a href="resources.php" ><i class="fa fa-laptop"></i>Resources</a></li>
+                  <li><a href="resources.php" ><i class="fa fa-book"></i>Resources</a></li>
                   <li><a href="how.php"><i class="fa fa-laptop"></i>Support</a></li>                  
-                  <li><a href="logout.php"><i class="fa fa-laptop"></i>Logout</a></li>                 
+                  <li><a href="logout.php"><i class="fa fa-power-off"></i>Logout</a></li>                 
                 </ul>
               </div>          
             </div>
